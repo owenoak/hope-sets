@@ -1,0 +1,39 @@
+//
+//	APPEARANCE RESET:
+//		Some elements have -*-appearance styles which are extremely different in different browsers.
+//		Use the following to clear them (eg: to normalize for different browsers).
+
+// Generic appearance reset
+.RESET_APPEARANCE() {
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	appearance:none;
+}
+
+// Special appearance reset for buttons.
+// 	You are *strongly* advised to use this for all custom <button> classes.
+.RESET_BUTTON_APPEARANCE() {
+	.RESET_APPEARANCE;
+	-moz-binding:none;
+	position:relative;
+	background-color:transparent;
+	border-width:0;
+	line-height:normal;
+	white-space:nowrap;
+	cursor:pointer;
+	text-align:center;
+	color:inherit;
+	font-size:inherit;
+	padding:0;
+	margin:0;
+	// NOTE: Moz puts a 1px border INSIDE all buttons for accessibility.
+	//		 The other browsers don't, which makes it hard to style things consistently.
+	//		 This removes that border.  See:  http://bit.ly/Y3adcs
+	&::-moz-focus-inner { border: 0; }
+
+	// show pointer cursor for all children
+// TODO: efficiency???
+	* {
+		cursor:pointer;
+	}
+}

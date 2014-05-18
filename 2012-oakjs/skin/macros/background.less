@@ -1,0 +1,34 @@
+//
+// CSS background tricks
+//
+
+// Set background size explicitly for various browsers.
+.BACKGROUND_SIZE(@style) {
+	-moz-background-size: @style;
+	-webkit-background-size: @style;
+	background-size: @style;
+}
+
+// Background graphic adapts to element size.
+.BACKGROUND_FULL_SIZE() {
+	.BACKGROUND_SIZE(100% 100%);
+}
+
+// Stretch the background image of an element to cover it's size.
+.BACKGROUND_COVER() {
+	background-repeat:no-repeat;
+	background-size: cover;
+	-moz-background-size: cover;
+	-webkit-background-size: 100% 100%;
+	-webkit-background-size: cover;
+}
+
+// Stretch the background image of an element to be as large as possible
+//	without distorting the image's aspect ratio.
+.BACKGROUND_CONTAIN() {
+	background-repeat:no-repeat;
+	background-size: contain;
+	-moz-background-size: contain;
+	-webkit-background-size: 100% 100%;
+	-webkit-background-size: contain;
+}

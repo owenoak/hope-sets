@@ -1,0 +1,18 @@
+//
+//	GPU acceleration for elements.
+//
+
+// Accelerate animation on this thing by making it a GPU "plane".
+.GPU_ACCELERATE() {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+// Remove GPU acceleration on an element.
+.GPU_FLATTEN() {
+	-webkit-transform-style: flat;
+	-moz-transform-style: flat;
+	transform-style: flat;
+}
+

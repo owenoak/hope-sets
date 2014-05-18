@@ -1,0 +1,44 @@
+//
+//	Macros for CSS gradients
+//
+
+// gradient w/no fallback for IE where you specify all parameters at once
+.GRADIENT(@params) {
+	background-image: linear-gradient(@params);
+	background-image: -moz-linear-gradient(@params);
+	background-image: -webkit-linear-gradient(@params);
+//		background-image: -ms-linear-gradient(@params);
+}
+// gradient w fallback for IE
+.GRADIENT(@params; @bgColor) {
+	.GRADIENT(@params);
+	//fallback for Microsoft Exploder
+	background-color:@bgColor;
+}
+
+//
+// Given two colors draw a horizontal gradient -- fallback to first color for unsuported browsers
+//
+.TWO_COLOR_GRADIENT(@startColor; @endColor; @startAt:top) {
+	@params:~"@{startAt}, @{startColor}, @{endColor}";
+	.GRADIENT(@params; @endColor);
+}
+
+.VERTICAL_GRADIENT(@startColor; @endColor) {
+	.TWO_COLOR_GRADIENT(@startColor 36%; @endColor 68%);
+}
+
+// Even gradient from top color to bottom color
+.EVEN_GRADIENT(@startColor; @endColor) {
+	.TWO_COLOR_GRADIENT(@startColor; @endColor);
+}
+
+.BUTTON_GRADIENT(@startColor; @endColor) {
+	.TWO_COLOR_GRADIENT(@startColor; @endColor);
+}
+
+.FOUR_COLOR_GRADIENT(@color1; @color2; @color3; @color4; @startAt:top) {
+	@params:~"@{startAt}; @{color1}; @{color2}; @{color3}; @{color4}";
+	.GRADIENT(@params; @color4);
+}
+

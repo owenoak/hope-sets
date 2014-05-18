@@ -1,0 +1,56 @@
+//
+//	Round corners
+//
+
+// round corners in a cross-platform way
+.ROUND(@radius:5px) {
+	border-radius: @radius;
+}
+
+// Remove all roundness.
+.NO_ROUND() {
+	.ROUND(0);
+}
+
+.ROUND_T(@radius:5px) {
+	border-top-right-radius: @radius;
+	border-top-left-radius: @radius;
+}
+
+.ROUND_TL(@radius:5px) {
+	border-top-left-radius: @radius;
+}
+
+.ROUND_TR(@radius:5px) {
+	border-top-right-radius: @radius;
+}
+
+.ROUND_B(@radius:5px) {
+	border-bottom-right-radius: @radius;
+	border-bottom-left-radius: @radius;
+}
+
+.ROUND_BL(@radius:5px) {
+	border-bottom-left-radius: @radius;
+}
+
+.ROUND_BR(@radius:5px) {
+	border-bottom-right-radius: @radius;
+}
+
+.ROUND_L(@radius:5px) {
+	border-top-left-radius: @radius;
+	border-bottom-left-radius: @radius;
+}
+
+.ROUND_R(@radius:5px) {
+	border-top-right-radius: @radius;
+	border-bottom-right-radius: @radius;
+}
+
+.ROUND_CORNERS(@tl:0px; @tr:0px; @br:0px; @bl:0px) {
+	border-top-right-radius: @tr;
+	border-bottom-right-radius: @br;
+	border-top-left-radius: @tl;
+	border-bottom-left-radius: @bl;
+}

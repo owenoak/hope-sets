@@ -1,0 +1,33 @@
+//
+//	Text selection.
+//
+
+// Add `NO_SELECT` to disable text selection in elements.
+// Does not effect <input> elements.
+.NO_SELECT() {
+	user-select:none;
+	-moz-user-select:-moz-none;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+// Add `SELECTABLE` to enable text selection in elements.
+// NOTE: can be added to descendents of `.NO_SELECT()` elements to make them selectable.
+.SELECTABLE() {
+	-moz-user-select:text;
+	-webkit-user-select:text;
+	user-select:text;
+}
+
+// Turn off mouse events off for elements.
+// Useful if you have elements above other elements which should ignore mouse events.
+// Does not effect <input> elements.
+.DISABLE_MOUSE_EVENTS() {
+	pointer-events:none;
+}
+
+// Turn mouse events back on for elements.
+// Use this if a parent element is `.DISABLE_MOUSE_EVENTS()` and you want this element to get events.
+.ENABLE_MOUSE_EVENTS() {
+	pointer-events:auto !important;
+}

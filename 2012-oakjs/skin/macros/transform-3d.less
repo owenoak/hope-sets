@@ -1,0 +1,60 @@
+//
+//	3d transform
+//
+
+// Make the "backface" of a 3d transform invisible, eg: when it's flipped.
+.HIDE_BACKFACE() {
+	backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+}
+
+// Make the "backface" of a 3d transform visible, eg: when it's flipped.
+.SHOW_BACKFACE() {
+	backface-visibility: visible;
+	-ms-backface-visibility: visible;
+	-moz-backface-visibility: visible;
+	-webkit-backface-visibility: visible;
+}
+
+// Rotate a certain number of degrees in the X-axis.
+// Default is to rotate 180 degrees.
+.ROTATE_X(@degrees:180deg) {
+	transform+:rotateY(@degrees);
+	-ms-transform+:rotateY(@degrees);
+	-moz-transform+:rotateY(@degrees);
+	-webkit-transform+:rotateY(@degrees);
+}
+
+// Rotate a certain number of degrees in the Y-axis.
+// Default is to rotate 180 degrees.
+.ROTATE_Y(@degrees:180deg) {
+	transform+:rotateY(@degrees);
+	-ms-transform+:rotateY(@degrees);
+	-moz-transform+:rotateY(@degrees);
+	-webkit-transform+:rotateY(@degrees);
+}
+
+// Rotate a certain number of degrees in the Z-axis.
+// Default is to rotate 180 degrees.
+.ROTATE_Z(@degrees:180deg) {
+	transform+:rotateY(@degrees);
+	-ms-transform+:rotateY(@degrees);
+	-moz-transform+:rotateY(@degrees);
+	-webkit-transform+:rotateY(@degrees);
+}
+
+// Apply CSS-3d transform perspective.
+.PERSPECTIVE(@amount:500px) {
+	perspective: @amount;
+	-ms-perspective: @amount;
+	-moz-perspective: @amount;
+	-webkit-perspective: @amount;
+}
+
+// Reset CSS-3d transform perspective to 0.
+.RESET_PERSPECTIVE() {
+	.PERSPECTIVE(0);
+}
+

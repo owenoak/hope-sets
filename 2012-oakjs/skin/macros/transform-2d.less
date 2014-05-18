@@ -1,0 +1,60 @@
+//
+//	2d CSS transform
+//	TODOC: list browser mins.
+//
+
+// Additive generic 2-d transforms or 3-d.
+// You can apply many of these and they'll add up.
+// TOTEST:  If many specific transforms (eg: rotate) are applied, how do they combine together?
+.TRANSFORM(@params) {
+	-webkit-transform+:@params;
+	   -moz-transform+:@params;
+	    -ms-transform+:@params;
+			transform+:@params;
+}
+
+
+// Rotate in 2d a certain number of degrees.
+// Will merge with other `.TRANSFORM()` properties.
+// TODO: degrees vs radians?
+.ROTATE(@degrees) {
+	.TRANSFORM(rotate(@degrees));
+}
+
+// Translate an element along x/y axis in 2d.
+// You can just specify `@left` or `@top` and the other will be set to `0`.
+// Will merge with other `.TRANSFORM()` properties.
+.TRANSLATE(@left:0; @top:0) {
+	.TRANSFORM(translate(@left, @top));
+}
+
+// Scale an element.  `1` = normal size.
+// Will merge with other `.TRANSFORM()` properties.
+.SCALE(@scale) {
+	.TRANSFORM(scale(@scale));
+}
+
+// Set CSS transform origin.
+// Will merge with other `.TRANSFORM()` properties.
+.ORIGIN(@x, @y) {
+	-webkit-transform-origin:@x @y;
+	   -moz-transform-origin:@x @y;
+		-ms-transform-origin:@x @y;
+		   transform-origin:@x @y;
+}
+
+// Set CSS transform origin to element center.
+.ORIGIN_CENTER() {
+	.ORIGIN(.5, .5);
+}
+
+// Set CSS transform origin to element top-left.
+.ORIGIN_TOP_LEFT() {
+	.ORIGIN(top, left);
+}
+
+// Set CSS transform origin to element bottom-right.
+.ORIGIN_BOTTOM_RIGHT() {
+	.ORIGIN(bottom, right);
+}
+

@@ -1,0 +1,25 @@
+//
+//	CSS box sizing -- does element "size" take into account border and/or padding?
+//	NOTE: supported in IE9+ and everywhere else we care about.
+//
+
+.BOX_SIZING(@sizing:content-box) {
+	box-sizing:@sizing;
+	-moz-box-sizing:@sizing;
+	-webkit-box-sizing:@sizing;
+
+}
+
+// Border-box styling: size of element includes padding and border size.
+// This is how God intended things to be.
+.BORDER_BOX() {
+	.BOX_SIZING(border-box);
+}
+
+// Content-box styling: size of element includes content only (default).
+// This is how the W3C stupidly made things work.
+.CONTENT_BOX() {
+	.BOX_SIZING(content-box);
+}
+
+

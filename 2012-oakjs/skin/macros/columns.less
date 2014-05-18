@@ -1,0 +1,16 @@
+//
+//	CSS columns (does NOT work in IE9)
+//	see:  http://kmsm.ca/2010/an-almost-complete-guide-to-css3-multi-column-layouts/
+//
+.COLUMN_COUNT(@count) {
+	-moz-column-count:@count;
+	-webkit-column-count:@count;
+	column-count:@count;
+}
+
+.COLUMN_WIDTH(@size) {
+	-moz-column-width:@size;
+	-webkit-column-width:@size;
+	column-width:@size;
+}
+

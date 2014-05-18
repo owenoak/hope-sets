@@ -1,0 +1,7 @@
+*{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{width:100%;height:100%;margin:0;padding:0}
+body{width:100%;height:100%;margin:0;padding:0;user-select:none;-moz-user-select:-moz-none;-moz-user-select:none;-webkit-user-select:none}
+button{font:inherit}
+hr{border:1px solid #eee;width:98%}
+a,a:active,a:link,a:visited{color:inherit;text-decoration:none;font-size:inherit}
+a:hover{text-decoration:underline}

@@ -1,0 +1,18 @@
+//
+//	CSS3 border-image for fancy backgrounds on buttons, etc
+//
+//	Specify the border size as top, right, bottom, left.
+//	Default border size is 5px on each side.
+//	Default @repeat is repeat;
+
+// CSSborder image
+.BORDER_IMAGE(@url; @top:5; @right:5; @bottom:5; @left:5; @repeat:fill repeat) {
+	// border-width needs the "px" added to each coordinate
+	@borderWidth:~`"@{top}px @{right}px @{bottom}px @{left}px"`;
+	border-width:@borderWidth;
+	border-color:transparent;
+	border-style:solid;
+	border-image:@url @top @right @bottom @left @repeat;
+	-moz-border-image:@url @top @right @bottom @left @repeat;
+	-webkit-border-image:@url @top @right @bottom @left @repeat;
+}

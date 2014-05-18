@@ -1,0 +1,58 @@
+/*****
+ *
+ *  Generic widget reset styling
+ *
+ *****/
+
+@import "macros/all.less";
+
+	// Generic rules for all elements
+	* {
+		.BORDER_BOX;		// turn on border box for all elements
+		.TAP_HIGHLIGHT_OFF; 	// turn off default webkit highlight on click
+	}
+
+	// <html> takes up full window with no margins/padding
+	html {
+		width:100%;
+		height:100%;
+		margin:0;
+		padding:0;
+	}
+
+	// <body> takes up full window with no margins/padding
+	body {
+		width:100%;
+		height:100%;
+		margin:0;
+		padding:0;
+		.NO_SELECT;	// turn off text selection by default
+	}
+
+	// buttons use normal font
+	button {
+		font:inherit;
+	}
+
+	// subtle <hr> appearance
+	hr {
+		border:1px solid #eee;
+		width:98%;
+	}
+
+	// don't color links, no underline normally.
+	a,
+	a:visited,
+	a:link,
+	a:active
+	{
+		color:inherit;
+		text-decoration: none;
+		font-size:inherit;
+	}
+
+	// but underline links on hover
+	a:hover	{
+		text-decoration: underline;
+	}
+

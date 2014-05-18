@@ -1,0 +1,875 @@
+//
+// Skin styles for the Catalog Spree "shop" framework
+//
+//	NOTE: everything in this file MUST be a variable or a function;
+//			this file is included in many other files, and things which
+//			output directly from here will be repeated many times.
+//
+
+@import "../macros/all.less";
+
+//
+//	image + font macros
+//
+
+	// OVERRIDE this in your specific app folder and that should win...
+	@APP_DIR : "studio";
+
+	// OVERRIDE this in your specific theme and that should win...
+	@OAK_SKIN_DIR : "/oak/skin/base";
+
+	//  Use an image from the global "/media" folder as a background image.
+	//	Use this rather than specifying the path so we can move files around.
+	.GLOBAL_IMAGE(@fileName) {
+		@fullUrl:~"url('/media/@{fileName}')";
+		background-image:@fullUrl;
+	}
+
+	// Application-specific image, from your `/<app>/media/` folder.
+	.APP_IMAGE(@fileName) {
+		@fullUrl:~"url('@{APP_DIR}/img/@{fileName}')";
+		background-image:@fullUrl;
+	}
+
+	// "skin"-specific image as a background image
+	//	Use this rather than specifying the path so we can move files around.
+	.SKIN_IMAGE(@fileName) {
+		@fullUrl:~"url('@{OAK_SKIN_DIR}/img/@{fileName}')";
+		background-image:@fullUrl;
+	}
+
+	// "skin"-specific font.
+	//	Use this rather than specifying the path so we can move files around.
+	.SKIN_FONT(@familyName, @fileName) {
+		@fontFamily:~"@familyName; src:url('@{OAK_SKIN_DIR}/font/@{fileName}')";
+		font-family:@fontFamily;
+	}
+
+//
+// Custom named fonts
+// NOTE: Don't use these classes directly unless you're doing a @font-face{} call!
+//		 Use .SKIN_BODY_FONT() etc instead.
+//
+// TODO: clean up this pattern!
+	// Custom font for body text.
+	// NOTE: not using a custom font for this at this time.
+	.SKIN_BODY_FONT_FACE() {
+		// font-family:BODY_FONT; src:url("../media/_skin/HelveticaNeue.ttf");
+	}
+
+	// Custom font for page titles and the like.
+	// NOTE: not using a custom font for this at this time.
+	.SKIN_TITLE_FONT_FACE() {
+		// NOTE: not using a custom font for this.
+		// font-family:TITLE_FONT; src:url("../media/_skin/HelveticaNeue-CondensedBold.ttf");
+	}
+
+	// Custom font for help graphics, etc.
+	.SKIN_CURSIVE_FONT_FACE() {
+		.SKIN_FONT("CURSIVE_FONT", "BlackJack.ttf");
+	}
+
+
+//
+//	Named fonts. Use these to set fonts in your elements rather than hard-coding font names/sizes.
+//
+	// Font for regular body text.
+	.SKIN_BODY_FONT() {
+		font-family:BODY_FONT, Helvetica, Arial, sans-serif;
+		font-size:14px;
+	}
+
+	// Font for page titles and the like.
+	.SKIN_TITLE_FONT() {
+		font-family:TITLE_FONT, Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		font-size:20px;
+	}
+
+	// Font for page sub-titles;
+	.SKIN_SUB_TITLE_FONT() {
+		font-family:TITLE_FONT, Helvetica, Arial, sans-serif;
+		font-weight: bold;
+		font-size:17px;
+	}
+
+	// Cursive font variant for styley stuff.
+	.SKIN_CURSIVE_FONT() {
+		font-family:CURSIVE_FONT, "Marker Felt", "Comic Sans", sans-serif;
+		font-size:18px;
+	}
+
+	// Font for controls (buttons, etc).
+	.SKIN_CONTROL_FONT() {
+		.SKIN_BODY_FONT();
+	}
+
+	// Font for large controls (buttons, etc).
+	.SKIN_BIG_CONTROL_FONT() {
+		.SKIN_TITLE_FONT();
+	}
+
+
+	// dimmed text or elements are partially transparent
+	.SKIN_DIMMED() {
+		opacity:.4;
+	}
+
+
+
+// Size for page elements which we dont want to take the whole screen
+// min and max width of the page
+	@SKIN_PAGE_MIN_WIDTH: 760px;
+	@SKIN_PAGE_MAX_WIDTH: 960px;
+
+	.SKIN_PAGE_SIZE() {
+		min-width:@SKIN_PAGE_MIN_WIDTH;
+		max-width:@SKIN_PAGE_MAX_WIDTH;
+	}
+
+
+// Text Colors
+	@LINK_COLOR							: #007dd0;		// medium blue -- unused?
+	@MONEY_COLOR						: #943462;		// maroon
+
+	.SKIN_LINK_TEXT() 	{	color:@LINK_COLOR;	}
+	.SKIN_MONEY_TEXT() 	{	color:@MONEY_COLOR;	}
+
+
+// Outline colors
+	@ACTIVE_COLOR						: #5abeef;		// lightblue
+	@SELECTED_COLOR						: #ee1577;		// fuscia
+	@FAVORITE_COLOR						: #ee1577;		// fuscia
+	@INVALID_COLOR						: red;			// darkred
+
+	.SKIN_OUTLINE_ACTIVE() {
+		.OUTLINE(@ACTIVE_COLOR);
+	}
+
+	.SKIN_OUTLINE_SELECTED() {
+		.OUTLINE_DARK(@SELECTED_COLOR);
+	}
+
+	.SKIN_OUTLINE_SELECTED_SUBTLE() {
+		.OUTLINE_LIGHT(@SELECTED_COLOR);
+	}
+
+	.SKIN_OUTLINE_FAVORITE() {
+		.OUTLINE(@SELECTED_COLOR);
+	}
+
+	.SKIN_OUTLINE_INVALID() {
+		.OUTLINE_DARK(@INVALID_COLOR);
+	}
+
+
+// Generic context menu appearance
+
+	.SKIN_CONTEXT_MENU_TARGET() {
+		.SKIN_OUTLINE_SELECTED() !important;
+	}
+
+	.SKIN_CONTEXT_MENU_TARGET_NO_HIGHLIGHT() {
+		.NO_SHADOW() !important;
+	}
+
+
+// Shadows
+	@SKIN_SHADOW_COLOR_LIGHT			: rgba(0, 0, 0, 0.3);
+	@SKIN_SHADOW_COLOR_NORMAL			: rgba(0, 0, 0, 0.5);
+	@SKIN_SHADOW_COLOR_DARK				: rgba(0, 0, 0, 0.7);
+
+	@SKIN_CONTRAST_SHADOW_COLOR_LIGHT	: rgba(255, 255, 255, 0.3);
+	@SKIN_CONTRAST_SHADOW_COLOR_NORMAL	: rgba(255, 255, 255, 0.5);
+	@SKIN_CONTRAST_SHADOW_COLOR_DARK	: rgba(255, 255, 255, 0.7);
+
+
+
+//
+//	iOS-style shadows from the top
+//
+
+// normal shadows
+	.SHADOW_LIGHT()			{ .BOX_SHADOW(0px 1px 3px @SKIN_SHADOW_COLOR_LIGHT);	}
+	.SHADOW() 				{ .BOX_SHADOW(0px 2px 5px @SKIN_SHADOW_COLOR_NORMAL);	}
+	.SHADOW_DARK() 			{ .BOX_SHADOW(0px 3px 7px @SKIN_SHADOW_COLOR_DARK);		}
+	.MENU_SHADOW() 			{ .BOX_SHADOW(0px 6px 7px @SKIN_SHADOW_COLOR_DARK);		}
+
+
+// shadow to the left or right of something (eg: hscroller arrow buttons)
+ 	.SHADOW_LEFT()			{ .BOX_SHADOW(-1px 0 5px @SKIN_SHADOW_COLOR_LIGHT); 	}
+ 	.SHADOW_RIGHT() 		{ .BOX_SHADOW(1px 0 5px @SKIN_SHADOW_COLOR_LIGHT); 	}
+
+
+// inset shadows
+	.INSET_SHADOW_LIGHT() 	{ .BOX_SHADOW(inset 0px 1px 3px @SKIN_SHADOW_COLOR_LIGHT);	}
+	.INSET_SHADOW() 		{ .BOX_SHADOW(inset 0px 1px 3px @SKIN_SHADOW_COLOR_NORMAL);	}
+
+ 	.INSET_SHADOW_LEFT()	{ .BOX_SHADOW(inset 3px 0 8px @SKIN_SHADOW_COLOR_DARK); 	}
+ 	.INSET_SHADOW_RIGHT()	{ .BOX_SHADOW(inset -3px 0 8px @SKIN_SHADOW_COLOR_DARK); 	}
+
+// shadow for text fields
+	.FIELD_SHADOW() 		{ .INSET_SHADOW;	}
+
+
+// outset shadow
+ 	.OUTSET_SHADOW_LIGHT()	{ .BOX_SHADOW(inset 0 -1px 3px @SKIN_SHADOW_COLOR_LIGHT); 	}
+ 	.OUTSET_SHADOW()		{ .BOX_SHADOW(inset 0 -1px 3px @SKIN_SHADOW_COLOR_NORMAL); 	}
+ 	.OUTSET_SHADOW_DARK()	{ .BOX_SHADOW(inset 0 -1px 3px @SKIN_SHADOW_COLOR_DARK); 	}
+
+// raised effect shadow
+	.RAISED_SHADOW(@color:#333) 				{	.BOX_SHADOW(0px 1px 1px@color);			}
+
+// shadow above a bottom drawer, eg: the ipad banner
+	.SHADOW_ABOVE_BOTTOM_DRAWER(@color:#333) {	.BOX_SHADOW(0 5px 10px @color);			}
+
+	@SKIN_TEXTCOLOR	            : rgba(20,20,20,1);
+	@SKIN_CONTRAST_TEXTCOLOR    : rgba(245,245,250,1);
+
+// Normal page background color
+	@SKIN_PAGE_BG_COLOR:	rgba(235,235,240,1);
+	.SKIN_PAGE_BG() {
+		//.SKIN_IMAGE("bg-lighter.png");
+		background-color:@SKIN_PAGE_BG_COLOR;
+		background-repeat:repeat;
+		color:@SKIN_TEXTCOLOR;
+	}
+
+// Alternate page background color (eg: slightly darker)
+	@SKIN_PAGE_ALT_COLOR:	rgba(225,225,230,1);
+	.SKIN_BG_ALT() {
+		//.SKIN_IMAGE("bg-light.png");
+		background-color:@SKIN_PAGE_ALT_COLOR;
+		color:@SKIN_TEXTCOLOR;
+	}
+
+// Accenting background color (eg: slightly more saturated)
+ 	@SKIN_ACCENT_COLOR          : rgba(210,210,210,0.9);
+ 	@SKIN_ACCENT_BORDER_COLOR   : rgba(175,175,180,1);
+
+	.SKIN_BG_ACCENT() {
+		//.SKIN_IMAGE("bg-light.png");
+		background-color:@SKIN_ACCENT_COLOR;
+		color:@SKIN_TEXTCOLOR;
+	}
+
+// Header section background (yet darker)
+	@SKIN_PAGE_DARK_COLOR:	rgba(195, 195, 200, 1);
+	.SKIN_BG_DARK() {
+		//.SKIN_IMAGE("bg-pin-dark.png");
+		background-color:@SKIN_PAGE_DARK_COLOR;
+		color:@SKIN_TEXTCOLOR;
+	}
+
+
+// Contrasting background color
+	@SKIN_CONTRAST_COLOR		: rgba(65,65,65,1);
+	.SKIN_CONTRAST_BG() {
+		background-color:@SKIN_CONTRAST_COLOR;
+		//.VERTICAL_GRADIENT( rgba(55,55,55,1), rgba(30,30,30,1) );
+		color:@SKIN_CONTRAST_TEXTCOLOR;
+	}
+
+// Main Toolbar
+	@TOP_TOOLBAR_HEIGHT			: 45px;
+	@TOP_TOOLBAR_BOTTOM_MARGIN	: 0px;
+	@TOP_TOOLBAR_MIN_SIZE		: 700px;
+	@TOP_TOOLBAR_MAX_SIZE		: 1600px;
+	@BELOW_TOP_TOOLBAR_TOP		: @TOP_TOOLBAR_HEIGHT + @TOP_TOOLBAR_BOTTOM_MARGIN;
+
+
+	.SKIN_TOOLBAR_SIZE() {
+		height: @TOP_TOOLBAR_HEIGHT;
+		width:100%;
+//		min-width: @TOP_TOOLBAR_MIN_SIZE;
+//		max-width: @TOP_TOOLBAR_MAX_SIZE;
+	}
+
+	.SKIN_TOOLBAR_BG() {
+		.SKIN_CONTRAST_BG;
+	}
+
+	.SKIN_TOOLBAR() {
+		.SKIN_TOOLBAR_BG;
+		.SHADOW_LIGHT;
+		height: @TOP_TOOLBAR_HEIGHT;
+	}
+
+	.SKIN_BELOW_TOP_TOOLBAR() {
+		top:@BELOW_TOP_TOOLBAR_TOP;
+	}
+
+
+//
+//	"shiny" button style (similar to what we're using in iOS now).
+//
+//	So-called because we're usign CSS to do all of the styling!
+//
+
+	@SHINY_ICON_OPACITY : 0.7;
+	.SHINY_BUTTON_SHADOW() {
+		// shadow components
+		@topInnerGlow		: inset 0 1px 1px rgba(255,255,255,.7);
+		@bottomInnerShadow	: inset 0 -1px 3px rgba(0,0,0,.3);
+
+		// shadows in different states
+		@innerShadows    :~"@{topInnerGlow},@{bottomInnerShadow}";
+		.BOX_SHADOW(@innerShadows);
+	}
+	.SHINY_BUTTON_GRADIENT(@topGradientColor, @bottomGradientColor) {
+		.SHINY_BUTTON_SHADOW();
+		.TWO_COLOR_GRADIENT(@topGradientColor, @bottomGradientColor);
+	}
+	.SHINY_BUTTON(@topGradientColor, @bottomGradientColor, @fontColor:black, @outlineColor:#c71175) {
+		.SHINY_BUTTON_GRADIENT(@topGradientColor, @bottomGradientColor);
+		color: @fontColor;
+
+		&:hover:not(.disabled) {
+			.TWO_COLOR_GRADIENT(darken(@topGradientColor, 5%), darken(@bottomGradientColor, 5%));
+		}
+
+		&:active:not(.disabled),
+		&.down:not(.disabled) {
+			.TWO_COLOR_GRADIENT(darken(@bottomGradientColor, 5%), darken(@topGradientColor, 5%));
+			border: 1px solid rgba(0,0,0,.5);
+		}
+
+		// give the button an outline when it's selected or is the default button.
+		@outlineShadows  :~"@{innerShadows}, 0 0 5px @{outlineColor}, 0 0 5px @{outlineColor}";
+		&.default {
+			border-color:rgba(0,0,0,.6);
+			.BOX_SHADOW(@outlineShadows);
+		}
+	}
+
+	// Variants on the SHINY_BUTTON style.  Only need to be applied to top-level classes.
+	.SHINY_BUTTON_VARIANTS() {
+		position: relative;
+//		margin-left:4px;	// NOTE: around 4px right margin added by browser for whitespace between buttons
+		margin-right:4px;
+		height:30px;
+		font-size:14px;
+		padding-left:10px; padding-right:10px;
+		border: 1px solid rgba(0,0,0,.3);
+		white-space:nowrap;
+		vertical-align:middle;
+		.ROUND(5px);
+
+		// *sigh* gecko doesn't vertically center text in buttons
+		//			but setting line-height in Safari pushes the text down.
+		html.gecko & {
+			line-height:30px;
+		}
+
+		// add "skinny" class to make left/right margins skinnier.
+		&.skinny {
+			padding-left:5px; padding-right:5px;
+		}
+
+		&:last-child {
+			margin-right:0;
+		}
+
+		&.disabled {
+			.SKIN_DIMMED;
+			cursor:not-allowed;
+		}
+
+		&.square-left {
+			.ROUND_L(0);
+			margin-left:-1px;
+		}
+
+		&.square-right {
+			.ROUND_R(0);
+			margin-right:0px;
+		}
+
+		&.tabby {
+			.ROUND_B(0);
+		}
+
+		&.icon-only {
+			padding:0;
+		}
+
+
+		// combo box -- split into two parts, "combo-left" and "combo-right"
+		&.combo-left {
+			.ROUND_R(0);
+			margin-right:0;
+			text-align:left;
+		}
+
+		&.combo-right {
+			.ROUND_L(0);
+			margin-left:-1px;
+			padding:0;
+		}
+
+
+		// add 'menu' class to add an arrow icon (also tweaks spacing)
+		&.menu,
+		&.combo-right {
+			&:after {
+				font-size:12px;
+				opacity:@SHINY_ICON_OPACITY;
+				padding:0 8px;
+				content:"▾";
+			}
+		}
+		// add 'menu' class to add an arrow icon to the right (also tweaks spacing)
+		&.menu:after {
+			padding-right:0;
+		}
+
+		& > .value {
+			font-weight:bold;
+			padding-left:5px;
+		}
+
+
+		&.checkbox {
+			padding-left:34px;
+			&:before {
+				opacity:.5;
+				position:absolute;
+				left:9px; top:-2px;
+				font-size:30px;
+				// "ballot box"
+				content:"\2610";
+			}
+		}
+		&.checkbox.checked {
+			&:after {
+				color:@SELECTED_COLOR;
+				position:absolute;
+				left:9px; top:0px;
+				font-size:30px;
+				// "check mark"
+				content:"\2713";
+				text-shadow:0 1px 2px rgba(0, 0, 0, 0.5);
+			}
+		}
+
+		&.compact {
+			font-size:12px !important;
+			height:25px !important;
+			line-height:25px !important;
+			padding-left:5px;
+			padding-right:5px;
+			margin-right:2px;
+
+			&.icon-only {
+				padding-right:0 !important;
+			}
+
+			&.checkbox {
+				padding-left:20px !important;
+				&:before {
+					font-size:23px;
+					left:5px;
+				}
+			}
+			&.menu {
+				padding-right:4px;
+				padding-left:4px;
+				&:after {
+					font-size:9px;
+				}
+			}
+		}
+	}
+
+	// "normal" shiny button -- light grey.
+//TODO: recast as "extends"
+	.SHINY_BUTTON_NORMAL() {
+		.SHINY_BUTTON(#f8f8f8, #c8c8c8, black);
+	}
+
+//TODO: recast as "extends"
+	.SHINY_BUTTON_NORMAL_BG() {
+		.SHINY_BUTTON_GRADIENT(#f8f8f8, #c8c8c8);
+	}
+
+	// "selected" shiny button -- dark pink.
+//TODO: recast as "extends"
+	.SHINY_BUTTON_SELECTED() {
+		.SHINY_BUTTON(#e21384, #990e5a, white);
+	}
+
+	// "important" shiny button -- dark pink.
+//TODO: recast as "extends"
+	.SHINY_BUTTON_IMPORTANT() {
+		.SHINY_BUTTON(#e21384, #990e5a, white);
+	}
+
+	// shiny button for facebook -- dark blue.
+//TODO: recast as "extends"
+	.SHINY_BUTTON_FACEBOOK() {
+		.SHINY_BUTTON(#4268a6, #375d93, white);
+	}
+
+	// big button variant -- larger with bigger text, more margins, etc.
+	.SHINY_BUTTON_BIG() {
+		margin-left:6px; margin-right:6px;
+		height:40px;
+		font-size:20px;
+		padding-left:15px; padding-right:15px;
+		min-width:100px;
+	}
+
+	// Style variant of shiny button.  Use this in addition to .SHINY_BUTTON_NORMAL etc.
+	.SHINY_BUTTON_STYLEY() {
+		.SKIN_CURSIVE_FONT();
+		height:35px;
+	}
+
+	.SHINY_TOOLBAR() {
+//		.SHINY_BUTTON_NORMAL_BG();
+//		.ROUND(5px);
+		position:relative;
+		height:30px;
+		background-color:#999;
+		.ROUND(5px);
+//		padding:0 5px;
+//		border: 1px solid rgba(0,0,0,.3);
+		button.shiny {
+//			.BOX_SHADOW(none);
+			.ROUND(0);
+			margin:0;
+			border-width:1px 0 1px 1px;
+
+			&:first-child {
+				.ROUND_L(5px);
+			}
+			&:last-child {
+				.ROUND_R(5px);
+				border-right-width:1px;
+			}
+
+			&.Separator {
+				margin-left:2px;
+			}
+		}
+		input[type=text] {
+			border:solid #999;
+			border-width:1px 0 1px 1px;
+			height:26px;
+			vertical-align:top;
+		}
+	}
+
+
+// Colors for overlay controls (eg: hscroller buttons)
+	.SKIN_OVERLAY_CONTROL() {
+		background-color:rgba(0,0,0,.65);
+		color:white;
+	}
+
+	.SKIN_OVERLAY_CONTROL_DARK() {
+		background-color:rgba(0,0,0,.85);
+		color:white;
+	}
+
+
+// Tooltip styling
+	.SKIN_TOOLTIP() {
+		.SKIN_OVERLAY_CONTROL_DARK;
+		.SHADOW_DARK;
+		.SKIN_TITLE_FONT;
+		.ROUND(8px);
+		position:absolute;
+		padding:2px 10px 4px 10px;
+		font-size:14px;
+		z-index:10000;
+	}
+
+
+// Notice overlay styling
+	.SKIN_NOTICE() {
+		.SKIN_OVERLAY_CONTROL;
+		.SHADOW_DARK;
+	}
+
+	.SKIN_PANEL_HEADER() {
+		.SKIN_TITLE_FONT;
+		display:inline-block;
+		font-size:25px;
+		line-height: 25px;
+		padding:5px 0 5px 0;
+	}
+
+// Panel appearance (eg: collection, brand, etc)
+	.SKIN_PANEL() {
+		.SKIN_BG_ALT;
+		.SHADOW_LIGHT;
+		.ROUND(3px);
+		display:inline-block;
+		position:relative;
+		vertical-align:top;
+	}
+
+// Light panel appearance (eg: product)
+	.SKIN_PANEL_LIGHT() {
+		.SHADOW_LIGHT;
+		.ROUND(3px);
+		display:inline-block;
+		position:relative;
+		vertical-align:top;
+	}
+
+
+	.SKIN_PANEL_DARK() {
+		.SHADOW_DARK;
+		.ROUND(10px);
+		background-color: rgba(0,0,0,.7);
+		border:1px solid rgba(255,255,255,.5);
+		color:white;
+	}
+
+
+	.ROUND_OUTSET_BOX() {
+		.ROUND(10px);
+		background-color:white;
+		.OUTSET_SHADOW_LIGHT;
+	}
+
+	.ROUND_OUTSET_HEADER() {
+		background-color:rgba(0,0,0,.7);
+		color:white;
+		.SKIN_TITLE_FONT();
+		text-align:left;
+		padding:9px 5px 5px 20px;
+		height:40px;
+		.ROUND_T(7px);
+		.SHADOW_LIGHT;
+	}
+
+	.ROUND_OUTSET_FOOTER() {
+		background-color:rgba(0,0,0,.7);
+		color:white;
+		.SKIN_TITLE_FONT();
+		text-align:left;
+		padding:9px 5px 5px 20px;
+		height:40px;
+		.ROUND_B(7px);
+		.SHADOW_LIGHT;
+	}
+
+
+/////////////////////////
+//	New panel semantics
+/////////////////////////
+	@SHINY_PANEL_MARGIN 		: 10px;
+	@SHINY_PANEL_ROUND 			: 6px;
+	@SHINY_PANEL_HEADER_HEIGHT 	: 40px;
+	@SHINY_PANEL_FOOTER_HEIGHT 	: 40px;
+	@SHINY_PANEL_BG				: white;
+	@SHINY_PANEL_HEADER_BG		: rgba(0,0,0,.05);
+	@SHINY_PANEL_FOOTER_BG		: rgba(0,0,0,.05);
+
+	.SHINY_PANEL_TITLE_APPEARANCE() {
+		color:#444;
+		.SKIN_TITLE_FONT();
+		padding:10px;
+	}
+
+	.SHINY_PANEL() {
+		position:relative;
+//		left:0; right:0;
+//		top:0; bottom:0;
+		background-color:white;
+		.ROUND(@SHINY_PANEL_ROUND);
+		.SHADOW_LIGHT;
+		text-align:left;
+
+		&.fullSize {
+			position:absolute;
+			left:0; right:0;
+			top:0; bottom:0;
+		}
+
+		& > .Header {
+			.ROUND_T(@SHINY_PANEL_ROUND);
+			display:none;
+			position:relative;
+			left:0; right:0;
+			top:0; height:@SHINY_PANEL_HEADER_HEIGHT;
+			background-color:@SHINY_PANEL_HEADER_BG;
+			border-bottom:1px solid rgba(0,0,0,.05);
+			cursor:default;
+
+
+			& > .Title {
+				display:inline-block;
+				.SHINY_PANEL_TITLE_APPEARANCE();
+				overflow:hidden;
+				text-overflow:ellipsis;
+				width:100%;
+				white-space:nowrap;
+			}
+
+			// Top toolbar aligns to the right by default
+			& > .Toolbar {
+				position:absolute;
+				display:inline-block;
+				top:0; right:0;
+				height:@SHINY_PANEL_FOOTER_HEIGHT;
+				text-align:right;
+				padding:5px;
+				white-space:nowrap;
+			}
+		}
+
+		& > .Footer {
+			.ROUND_B(@SHINY_PANEL_ROUND);
+			display:none;
+			position:relative;
+			left:0; right:0;
+			bottom:0; height:@SHINY_PANEL_FOOTER_HEIGHT;
+			background-color:@SHINY_PANEL_FOOTER_BG;
+			border-top:1px solid rgba(0,0,0,.05);
+			cursor:default;
+
+			// Bottom toolbar aligns to the left by default
+			& > .Toolbar {
+				display:block;
+				top:0; left:0;
+				height:@SHINY_PANEL_FOOTER_HEIGHT;
+				text-align:left;
+				padding:5px;
+			}
+		}
+
+		& > .Body {
+			position:relative;
+			left:0; right:0;
+			top:0; bottom:0;
+		}
+
+		// If 'showingHeader' class is on the panel, show header and move body down.
+		&.showingHeader {
+			& > .Header {
+				display:block;
+			}
+		}
+
+		// If 'showingFooter' class is on the panel, show footer and move bottom of body up.
+		&.showingFooter {
+			& > .Footer {
+				display:block;
+			}
+		}
+
+		&.showingModally {
+			& > .Footer > .Toolbar {
+				text-align:right;
+			}
+		}
+
+		// transparent panel -- no rounding and no shadow.
+		&.transparent {
+			.ROUND(0);
+			.NO_SHADOW;
+		}
+
+		// panel with scrolling body region
+		&.scrollBody {
+			& > .Header {
+				position:absolute;
+			}
+
+			& > .Body {
+				position:absolute;
+				overflow:auto;
+			}
+
+			& > .Footer {
+				position:absolute;
+			}
+
+			// If 'showingHeader' class is on the panel, show header and move body down.
+			&.showingHeader {
+				& > .Body {	top:@SHINY_PANEL_HEADER_HEIGHT;	}
+			}
+
+			// If 'showingFooter' class is on the panel, show footer and move bottom of body up.
+			&.showingFooter {
+				& > .Body {	bottom:@SHINY_PANEL_FOOTER_HEIGHT;	}
+			}
+
+		}
+
+		& > .Closebox {
+			.BIG_CLOSEBOX();
+		}
+		&.showingClosebox {
+			& > .Header > .Title {
+				padding-left:25px;
+			}
+		}
+	}
+
+
+
+/////////////////////////
+//	icons and such
+/////////////////////////
+
+// Next/prev/close/etc icons
+	.SKIN_BTN_PREV_BIG() {
+		padding:0;
+		width:50px;
+		min-height:100px;
+		.SKIN_IMAGE("arrow-prev.png");
+		background-position:10px 50%;
+		background-color:transparent;
+		background-repeat:no-repeat;
+	}
+
+	.SKIN_BTN_NEXT_BIG() {
+		padding:0;
+		width:50px;
+		min-height:100px;
+		.SKIN_IMAGE("arrow-next.png");
+		background-position:10px 50%;
+		background-color:transparent;
+		background-repeat:no-repeat;
+	}
+
+	.SKIN_BTN_CLOSE_CIRCLE_BIG() {
+		.SKIN_IMAGE("closer-large.png");
+		background-repeat:no-repeat;
+		width:42px; height:42px;
+	}
+
+	.SKIN_BTN_CLOSE_CIRCLE_SMALL() {
+		.SKIN_IMAGE("closer-small.png");
+		background-repeat:no-repeat;
+		width:21px; height:21px;
+	}
+
+	.SKIN_BTN_CIRCLE_RESTORE_SMALL() {
+		.SKIN_IMAGE("add-small.png");
+		background-repeat:no-repeat;
+		width:31px; height:32px;
+	}
+
+
+	// big closebox, eg: for an Overlay
+	.BIG_CLOSEBOX() {
+		.SKIN_BTN_CLOSE_CIRCLE_BIG;
+		position : absolute;
+		left     : -20px;
+		top      : -20px;
+		z-index  : 10000;
+		cursor   : pointer;
+	}
+
+
+/////////////////////////
+//	label colors, etc
+/////////////////////////
+	@EDITOR_HINT_COLOR 		: #999;
+	@EDITOR_LABEL_COLOR 	: #666;

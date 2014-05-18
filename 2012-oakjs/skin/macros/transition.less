@@ -1,0 +1,61 @@
+//
+//	CSS transitions for animation element css changes
+//
+
+// Set element to transition CSS properties over a period of time.
+// Default is to transition all properties over 1/2 second.
+.TRANSITION(@properties:all; @duration:.5s) {
+	.TRANSITION_PROPERTIES(@properties);
+	.TRANSITION_DURATION(@duration);
+}
+
+
+// Set which properties should animate on change.  Default = all properties.
+.TRANSITION_PROPERTIES(@properties:all) {
+	-webkit-transition-property:@properties;
+	-moz-transition-property:@properties;
+	transition-property:@properties;
+}
+
+// 	Set duration of transition for transition-property values.
+//	Default is 1/2 second.
+.TRANSITION_DURATION(@duration:.5s) {
+	-webkit-transition-duration:@duration;
+	-moz-transition-duration:@duration;
+	transition-duration:@duration;
+}
+
+// Set element to transition ALL properties over a period of time.
+// Default time is 1/2 second.
+.TRANSITION_ALL(@duration:.5s) {
+	.TRANSITION(all; @duration);
+}
+
+// Set element to transition all bounds properties over time.
+// Properties are: element rectangle (including min- and max- width/height), background color and opacity.
+// Default time is 1/2 second.
+// Adds GPU acceleration to element.
+@TRANSITION_BOUNDS_PROPERTIES : top,left,right,bottom,width,height,max-width,max-height,min-width,min-height,background-color,opacity;
+.TRANSITION_BOUNDS(@duration:.5s) {
+	.GPU_ACCELERATE;
+	.TRANSITION(@TRANSITION_BOUNDS_PROPERTIES; @duration);
+}
+
+// Transition width and height (including max- and min-) over time.
+// Default time is 1/2 second.
+// Adds GPU acceleration to element.
+@TRANSITION_SIZE_PROPERTIES : width,height,max-width,max-height,min-width,min-height;
+.TRANSITION_SIZE(@duration:.5s) {
+	.GPU_ACCELERATE;
+	.TRANSITION(@TRANSITION_SIZE_PROPERTIES; @duration);
+}
+
+// Transition opacity over time.
+// Default time is 1/2 second.
+// Adds GPU acceleration to element.
+.TRANSITION_OPACITY(@duration:.5s) {
+	.GPU_ACCELERATE;
+	.TRANSITION(opacity; @duration);
+}
+
+

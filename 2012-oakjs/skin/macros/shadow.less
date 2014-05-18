@@ -1,0 +1,46 @@
+//
+//	CSS Shadow variants.
+//
+
+// Shadow on the OUTSIDE of the box.
+//	Arguments are:  x, y, blur, color.
+.BOX_SHADOW(@params) {
+	box-shadow: @params;
+}
+
+// Turn shadow OFF
+.NO_SHADOW() {
+	.BOX_SHADOW(none);
+}
+
+
+// Outline: just specify a color.
+.OUTLINE_BORDER(@color:#5abeef) {
+	@outsideShadow: 0 0 1px @color;
+	@multipleShadows:~"@{outsideShadow}, @{outsideShadow}";
+	.BOX_SHADOW(@multipleShadows);
+}
+
+.OUTLINE_LIGHT(@color:#5abeef) {
+	@outsideShadow: 0 0 4px @color;
+	@multipleShadows:~"@{outsideShadow}, @{outsideShadow}";
+	.BOX_SHADOW(@multipleShadows);
+}
+
+// Medium inset/outset shadow -- just specify color.
+.OUTLINE(@color:#5abeef) {
+	@outsideShadow: 0 0 8px @color;
+	@insideShadow: inset 0 0 8px @color;
+	@blackShadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+	@multipleShadows:~"@{outsideShadow}, @{outsideShadow}, @{insideShadow}, @{insideShadow}, @{blackShadow}";
+	.BOX_SHADOW(@multipleShadows);
+}
+
+// Heavy inset/outset shadow  -- just specify color.
+.OUTLINE_DARK(@color:#5abeef) {
+	@outsideShadow: 0 0 8px @color;
+	@insideShadow: inset 0 0 8px @color;
+	@multipleShadows:~"@{outsideShadow}, @{outsideShadow}, @{outsideShadow}, @{outsideShadow}, @{insideShadow}, @{insideShadow}";
+	.BOX_SHADOW(@multipleShadows);
+}
+

@@ -1,0 +1,2164 @@
+@import "base/skin.less";
+
+/* "diabled" things should ignore mouse events */
+	.disabled {
+		.DISABLE_MOUSE_EVENTS();
+	}
+
+
+/* Generic useful classes */
+	.floatLeft {
+		float:left;
+	}
+	.floatRight {
+		float:right;
+	}
+
+
+
+/* Generic widget-ey bits */
+
+	widget {
+		display:block;
+	}
+
+/* 	zoom level
+	dontzoom {
+		zoom:1;
+		transform-origin:left top;
+	}
+
+	zoom {
+		zoom:1;
+		transform-origin:left top;
+	}
+*/
+
+/* turn off chrome button outline */
+	button:focus {outline:0;}
+
+/* 	Buttons and things */
+
+	// reset all buttons by default
+	button {
+		.RESET_BUTTON_APPEARANCE();
+	}
+
+
+	//
+	//  shiny buttons -- defined in the skin.
+	//
+	//	You should use these by default, so your app looks like everything else.
+	//	NOTE that each variant below has the following styles defined:
+	//		:active and .down	-- looks like it's depressed
+	//		.default			-- has a glow around it
+	//
+
+	// Normal shiny button. (includes :active, .down, .default and .selected styles).
+	button.shiny {
+		.SHINY_BUTTON_NORMAL();
+		.SHINY_BUTTON_VARIANTS();
+	}
+
+	// "selected" or "dirty" shiny button -- darker so it stands out.
+	button.shiny.selected,
+	button.shiny.dirty {
+		.SHINY_BUTTON_SELECTED();
+	}
+
+	// Important button -- darker so it stands out.
+	button.shiny.important {
+		.SHINY_BUTTON_IMPORTANT();
+	}
+
+	// Facebook button (facebook blue).
+	button.shiny.facebook {
+		.SHINY_BUTTON_FACEBOOK();
+	}
+
+	// Bigger variants of shiny buttons.
+	button.shiny.big {
+		.SHINY_BUTTON_BIG();
+	}
+
+	// Styley shiny buttons (cursive font).
+	button.shiny.styley {
+		.SHINY_BUTTON_STYLEY();
+	}
+
+	.toolbar.shiny {
+		.SHINY_TOOLBAR();
+	}
+
+
+
+
+/* Overlay widget */
+
+	.OverlayBody {
+		.SKIN_PANEL;
+		.SHADOW_DARK;
+		.ROUND(10px);
+	}
+
+	.Overlay {
+		display:none;
+		position:fixed;
+		left:0; right:0;
+		top:0; bottom:0;
+		background:rgba(0,0,0,.7);
+
+	// overlay contents
+		& > .Body {
+			.OverlayBody;
+			position:relative;
+// horizontal centering now done in Overlay.adjustToWindowSize()
+//			margin:0 auto;
+			padding:10px;
+			overflow:visible;
+			top:50px;
+
+			text-align:left;
+
+		// overlay closebox
+			& > .Closebox {
+				.BIG_CLOSEBOX;
+				display  : none;
+			}
+		}
+
+		&.closeable > .Body .Closebox {
+			display:block;
+		}
+
+		&.modal > .Body > .Closebox {
+			display:none;
+		}
+
+		// for children of an overlay that you want to hide when in "modal" mode
+		//	add class "hideWhenModal"
+		.hideWhenModal {
+			display:none;
+		}
+
+		& > .Body > .Header {
+			font-size:2em;
+			font-weight:bold;
+			padding:10px;
+		}
+	}
+
+	// background mask for underneath an overlay
+	#OverlayMask,
+	.OverlayMask {
+		display:none;
+		position:fixed;
+		left:0; right:0;
+		top:0; bottom:0;
+		background:rgba(0,0,0,.4);
+	}
+
+/* loading graphic -- apply as a class */
+	.loadingSpinner {
+		.GLOBAL_IMAGE("loading.gif");
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+
+
+
+/* 	Top and bottom toolbars */
+
+	.toolbar {
+		display:block;
+		position:absolute;
+		left:0px; right:0px;
+		height:60px;
+		z-index:100;
+		white-space:nowrap;
+ //		overflow:hidden;
+
+
+		// nested toolbar
+		.toolbar {
+			display:inline-block;
+		}
+
+		// toolbar on the top of its container
+		&.top {
+			top:0px;
+		}
+
+		// toolbar on the bottom of its container
+		&.bottom {
+			bottom:0;
+		}
+
+		// toolbar centered in its container
+		&.center {
+			text-align:center;
+		}
+
+		// toolbar inner container which should align to the left
+		& > .left {
+			z-index:1;
+			position:absolute;
+			height:100%;
+			left:0;
+			text-align:left;
+			white-space:nowrap;
+//			background:rgba(0,0,255,.3);
+		}
+
+		// toolbar inner container which should align to the right
+		& > .right {
+			z-index:1;
+			position:absolute;
+			top:0; right:0;
+			height:100%;
+			text-align:right;
+			white-space:nowrap;
+//			background:rgba(0,255,0,.3);
+		}
+
+		// toolbar inner container which should align in the center
+		& > .center {
+			z-index:2;
+			text-align:center;
+//			background:rgba(255,0,0,.3);
+		}
+
+		spacer {
+			display:inline-block;
+			width:5px;
+		}
+
+	}// end .toolbar
+
+	// HACK: this is particular to a certain look
+	.phone .toolbar select {
+		position:relative;
+		top:11px;
+	}
+
+
+/* 	PageToolbar -- associated with a particular page */
+	#PageToolbarContainer {
+		position:relative;
+		display:inline-block;
+		vertical-align:top;
+	}
+
+	.PageToolbar {
+		position:relative;
+		display:inline-block;
+		vertical-align:top;
+
+		& > button.shiny {
+			margin-top:5px;
+		}
+
+		& > span.pinit {
+			span.icon {
+				display: inline-block;
+				.SKIN_IMAGE("pinit.png");
+				width: 50px;
+				height: 20px;
+				background-repeat: no-repeat;
+			}
+
+			//display:inline-block;
+			//height:@TOP_TOOLBAR_HEIGHT;
+			//padding-top:11px;
+			//margin-right:13px;
+			//vertical-align:middle;
+			// STUFF HERE TO MAKE IMAGE
+		}
+
+	}
+
+
+
+/* large circular buttons */
+	button.big-circle {
+		width: 50px;
+		height:50px;
+		background-color:transparent;
+		border-width:0px;
+		color:white;
+		.GLOBAL_IMAGE("btn-big-circle.png");
+		background-repeat:no-repeat;
+		text-align:center;
+		padding-bottom:1px;
+
+		&:hover, &:active {
+			.GLOBAL_IMAGE("btn-big-circle-active.png");
+		}
+
+		&.selected {
+			.GLOBAL_IMAGE("btn-big-circle-selected.png");
+		}
+	}
+
+
+
+	/* tabbar which looks like an ios segmented control */
+	.Tabbar {
+		display:inline-block;
+	}
+
+
+	.Tabbar.segmented {
+		position:relative;
+		white-space:nowrap;
+		&.fullWidth {
+			width:100%;
+		}
+
+		&.flatBottom > button.Tab {
+			&:first-child {
+				.ROUND_BL(0px);
+			}
+			&:last-child {
+				.ROUND_BR(0px);
+			}
+		}
+
+		& > button.Tab {
+			.SHINY_BUTTON_NORMAL();
+			min-width:60px;
+			.ROUND(0px);
+			border-right-width:0;
+
+			&:first-child {
+				.ROUND_L(6px);
+			}
+
+			&:last-child {
+				.ROUND_R(6px);
+				border-right-width:0;
+			}
+
+			&.selected {
+				.SHINY_BUTTON_SELECTED();
+			}
+		}// end button.tab
+	}// end .Tabbar.segmented
+
+
+/*
+ *
+ *	Editor widget
+ *
+ */
+
+	.Editor {
+		font-size: 16px;
+
+		table.fixed {
+			table-layout:fixed;
+		}
+
+		h2,h3 {
+			font-weight:bold;
+			font-size:1.2em;
+			border-bottom:1px solid #ccc;
+			margin:20px 0 5px 0;
+			&:first-child {
+				margin-top:0;
+			}
+		}
+
+		.editorTable {
+			width: 100%;
+			border-collapse:collapse;
+
+			td,th {
+				height:35px;
+				.NO_SELECT;
+			}
+
+			tr.spacer td {
+				height:20px;
+			}
+
+			th {
+				white-space:nowrap;
+			}
+
+			.label {
+				text-align:right;
+				padding-left:20px;
+				cursor:default;
+				color:@EDITOR_LABEL_COLOR;
+				white-space:nowrap;
+				vertical-align:middle;
+			}
+
+			td.input {
+				width:100%;
+				padding-right:10px;
+			}
+
+			td.input.tight {
+				white-space:nowrap;
+				width:auto;
+			}
+
+			td.output {
+				width:100%;
+				padding-right:10px;
+			}
+
+			td.select {
+				width:100%;
+				padding-right:10px;
+			}
+
+			td.spacer {
+				padding:0;
+				height:auto;
+			}
+
+			td.center {
+				text-align:center;
+			}
+
+			td.left {
+				text-align:left;
+			}
+
+			td.colHeader {
+				text-align:left;
+				font-weight:bold;
+				border-bottom:1px solid #ccc;
+			}
+
+			td.rowHeader {
+				text-align:right;
+				font-weight:bold;
+				border-left:1px solid #ccc;
+			}
+
+			td.cell {
+				text-align:left;
+				border:1px solid #ccc;
+			}
+
+			td.actions {
+				white-space:nowrap;
+			}
+
+			td.checkbox {
+				padding-left:20px;
+			}
+
+			label.checkbox,
+			label.radio,
+			td.checkbox label,
+			td.radio label {
+				cursor:pointer;
+			}
+
+			th.indentSmall,
+			td.indentSmall {
+				padding-left:10px !important;
+			}
+			th.indent,
+			td.indent {
+				padding-left:20px !important;
+			}
+			th.indentLarge,
+			td.indentLarge {
+				padding-left:50px !important;
+			}
+
+			th.inset,
+			td.inset {
+				padding:10px;
+			}
+
+			td.padTop,
+			th.padTop,
+			tr.padTop > td,
+			tr.padTop > th {
+				padding-top:10px !important;
+			}
+
+			td.padBottom,
+			th.padBottom,
+			tr.padBottom > td,
+			tr.padBottom > th {
+				padding-bottom:10px !important;
+			}
+
+			td.underline,
+			th.underline {
+				border-bottom:1px solid #ccc;
+			}
+			td.overline,
+			th.overline {
+				border-top:1px solid #ccc;
+			}
+
+			th {
+				padding-top:5px;
+				font-weight:bold;
+				&.right {
+					text-align:right;
+					padding-right:5px;
+				}
+			}
+
+		}
+
+		hr {
+			border:0px solid #ddd;
+			border-top-width:1px;
+			width:98%;
+		}
+
+		img {
+			vertical-align:middle;
+		}
+
+		.hint {
+			color: @EDITOR_HINT_COLOR;
+			font-style:italic;
+		}
+
+
+		.error {
+			font-weight:bold;
+			font-style:italic;
+			color:darkred;
+			background:pink;
+			.ROUND(5px);
+		}
+
+		.smaller {
+			font-size: 12px;
+		}
+
+		.center {
+			text-align:center;
+		}
+
+
+		output {
+			.SELECTABLE;
+			display:inline-block;
+			color:black;
+			padding-left:4px;
+			vertical-align:middle;
+		}
+
+		input.autoWidth,
+		select.autoWidth {
+			width:auto;
+		}
+
+		input[type=text],
+		input[type=password],
+		textarea,
+		output.editable,
+		select {
+			width:100%;
+			font-size:inherit;
+		}
+
+		input[type=text],
+		input[type=number],
+		input[type=password],
+		textarea,
+		output.editable {
+			.FIELD_SHADOW;
+			border:0px;
+			padding:5px;
+			.ROUND(3px);
+			background:#f8f8f8;
+			vertical-align:middle;
+			font-family:inherit;
+			font-size: inherit;
+
+			&.disabled,
+			&[disabled] {
+				.NO_SHADOW;
+				border:1px solid #eee;
+				background:none;
+				color:black;
+			}
+		}
+
+		input[type=number] {
+			width:5em;
+			text-align:right;
+
+			&[units]:after {
+				padding-right:5px;
+				content:attr(units);
+			}
+		}
+
+		input:focus,
+		textarea:focus,
+		output.editable:hover {
+			background:white;
+		}
+
+		input::-moz-placeholder,
+		textarea::-moz-placeholder {
+			color:rgba(0,0,0,.4);
+			font-style:italic;
+		}
+
+		textarea {
+			margin:0 10px;
+		}
+
+		button {
+			vertical-align:middle;
+		}
+
+		.innerTable {
+			border-collapse:collapse;
+			td.label {
+				padding:2px;
+				text-align:center;
+				height:15px;
+			}
+			td.bordered {
+				border:1px solid #ccc;
+				padding:2px 10px;
+			}
+		}
+
+		output.check {
+			width:27px;
+			height:27px;
+			vertical-align:middle;
+			margin-right:5px;
+			cursor:default;
+
+			div {
+				width:27px;
+				height:27px;
+				display:inline-block;
+				background-repeat:no-repeat;
+
+				&.ok {
+					.GLOBAL_IMAGE("check-green.png");
+				}
+				&.bad {
+					.GLOBAL_IMAGE("check-off.png");
+				}
+			}
+		}
+
+		.EditorToolbar {
+			text-align:center;
+		}
+
+		.headerRow {
+			border:1px solid rgba(0,0,0,.3);
+			border-width:1px 0;
+			background:rgba(0,0,0,.1);
+
+			.header {
+				padding:10px;
+				font-weight:bold;
+			}
+		}
+
+		.spacerRow {
+			td {
+				height:10px;
+			}
+		}
+
+		.resultsRow {
+			td {
+				height:100%;
+				vertical-align:top;
+				padding:5px;
+			}
+		}
+	}
+
+
+/*
+ *
+ *	OutsetPanel appearance, eg: in the brand/issue editor
+ *
+ */
+
+	.outsetPanel {
+		position:absolute;
+		top: 12px;
+		bottom: 12px;
+		.ROUND_OUTSET_BOX;
+
+		.titlebar {
+			.ROUND_OUTSET_HEADER;
+		}
+
+		.scroller {
+			position:absolute;
+			left:0;
+			top:43px;
+			right:4px;
+			bottom:4px;
+			overflow-x:hidden;
+			overflow-y:auto;
+		}
+
+		.scroller.notitlebar {
+			top:0px;
+		}
+
+		&.scrollGutter {
+			.ROUND_R(0);
+		}
+	}
+
+
+/*
+ *
+ *	Notice Overlay
+ *
+ */
+	.Notice {
+		.OverlayBody;
+		.SKIN_TITLE_FONT;
+		font-size:2em;
+		text-align:center;
+		padding:25px 20px 20px 20px;
+	}
+
+	// notice widget as part of some other widget
+	.WidgetNotice {
+		position:relative;
+		min-width:400px;
+		max-width:800px;
+	}
+
+
+
+/* Top level Notice object (generally included in the page.html directly) */
+	#Notice {
+		position:fixed;
+		left:0; right:0;
+		top:70px;
+		text-align:center;
+
+		.Body {
+			.CENTER_WITH_MARGIN_RELATIVE;
+			min-width:400px;
+			max-width:800px;
+			min-height:38px;
+		}
+
+		.logo {
+			position:absolute;
+			left:20px;
+			top:20px;
+		}
+
+		.message {
+			text-align:left;
+			margin-left:60px;
+			padding-top:3px;
+		}
+	}
+
+
+
+
+/*
+ *
+ *	Menu widgets
+ *
+ */
+	.MenuSeparator {
+		border-bottom:1px solid @SKIN_ACCENT_BORDER_COLOR;
+	}
+
+	.Menu {
+		//.SKIN_PAGE_BG;
+		background-color: #FFF;
+		color: #333;
+		.SHADOW_DARK;
+		.ROUND_B(4px);
+		display:none;		// initially hide
+		position:absolute;
+		z-index:100;
+		top:-500px;			// NOTE: adjust this if your menu is taller than 500px
+	}
+
+	.MenuItem, .MenuHeader {
+		.SKIN_CONTROL_FONT;
+		display:block;
+		position:relative;
+		font-size: 14px;
+		line-height: 28px;
+		text-align:left;
+		padding: 5px 20px 5px 10px;
+		white-space:nowrap;
+	}
+
+	.MenuHeader {
+		//.SKIN_BG_ACCENT;
+		background-color: #DDD;
+		color: #333;
+		//.SHADOW_LIGHT;
+		border-bottom: 1px solid @SKIN_ACCENT_BORDER_COLOR;
+		font-weight:bold;
+		cursor:pointer;
+	}
+
+	.MenuHeader[destination],
+	.MenuItem {
+		.NO_SELECT;
+		cursor:pointer;
+
+		* {
+			cursor:pointer;
+		}
+
+		&.checked,
+		&.unchecked {
+			.check {
+				display:inline-block;
+				position:relative;
+				width:27px; height:27px;
+				margin: 0px 10px 0 -4px;
+				.GLOBAL_IMAGE("check-green.png");
+				background-repeat:no-repeat;
+				vertical-align:middle;
+			}
+		}
+
+		&.checked {
+//			font-weight:bold;
+		}
+
+		&.unchecked {
+			.check {
+				opacity:0;
+			}
+		}
+
+		&:hover {
+			text-decoration:underline;
+		}
+
+		&.Separator {
+			.MenuSeparator;
+		}
+
+		//add a facebook icon to a menu item
+		&.facebook {
+			icon {
+				.GLOBAL_IMAGE("btn-icon-facebook.png");
+				width: 20px; height: 20px;
+				margin-right: 5px;
+			}
+		}
+
+		&.email {
+			icon {
+				.GLOBAL_IMAGE("btn-icon-email.png");
+				width: 20px; height: 20px;
+				margin-right: 5px;
+			}
+		}
+	}
+
+	.MenuGroup {
+		position:relative;
+		&:first-child {  border-top:0; }
+		.MenuSeparator;
+
+		// nest menu items in a menuGroup but outdent the header
+		.MenuHeader {}
+		.MenuItem {
+			padding-left:25px;
+		}
+	}
+
+	.MenuItem.roundTop,
+	.MenuHeader.roundTop {
+		.ROUND_T(8px);
+	}
+
+	.Menu.roundBottom,
+	.MenuItem.roundBottom,
+	.MenuHeader.roundBottom {
+		.ROUND_B(10px);
+	}
+
+
+
+	// checkable items:
+	//	- add 'check' class to the item iteself to show the check column
+	//	- add 'selected' class to any item which should show the check
+	.MenuItem.check {
+		padding-left:35px;
+		.GLOBAL_IMAGE("check-green-off.png");
+		background-position:3px 3px;
+		background-repeat:no-repeat;
+
+		&.selected {
+			.GLOBAL_IMAGE("check-green.png");
+			font-weight:bold;
+		}
+	}
+
+	// menu items which should show an icon in their left column
+	.MenuItem.icon {
+		padding-left:35px;
+	}
+
+
+	// dark menu variant (eg: top toolbar menus)
+	.Menu.dark {
+		background-color:#333;
+		.GLOBAL_IMAGE("toolbar-bg-bottom.png");
+		*,a {	color:white !important; }
+
+		.MenuItem, .MenuHeader {
+			background-color:#333;
+			.GLOBAL_IMAGE("toolbar-bg-bottom.png");
+			color:white !important;
+			height:40px;
+			padding:10px 30px 5px 15px;
+			opacity:1;
+		}
+	}
+
+	.MenuButton {
+		position:relative;
+		.arrow {
+			position:relative;
+			display:inline-block;
+			.GLOBAL_IMAGE("arrow-grey-down.png");
+			background-repeat:no-repeat;
+			background-position:left center;
+			width:12px;
+			height:12px;
+			z-index:2;
+			margin: 0px 0px 0px 5px;
+		}
+	}
+
+
+
+/*
+ *
+ *	ContextMenu and AppMenu widgets
+ *
+ */
+
+	.ContextMenu,
+	.AppMenu {
+		display:none;		// initially hide
+		.MENU_SHADOW;
+		background-color: white;
+		color:black;
+		position:absolute;
+		z-index:100;
+		padding:5px 0;
+		margin-left:-2px;
+		.ROUND(5px);
+
+		&.inMenuBar {
+			top:30px !important;
+			.ROUND_T(0px);
+		}
+
+		&.Submenu {
+			.ROUND_TL(0px);
+			margin-left:-5px;
+		}
+
+		.MenuItem {
+			position:relative;
+			display:block;
+			height:25px;
+			line-height:25px;
+			width:100%;
+			padding:0 100px 0 20px;
+			text-decoration:none;
+
+			&:hover {
+				text-decoration:none;
+				background-color:rgba(0,0,0,.05);
+			}
+
+			&.notyet {
+				opacity:.1 !important;
+				text-decoration:line-through;
+			}
+
+			&:after {
+				display:block;
+				position:absolute;
+				right:15px; top:0;
+				height:25px; line-height:25px;
+				width:70px;
+				text-align:right;
+				content:attr(shortcut);
+			}
+
+			&.hasSubmenu:after {
+				display:block;
+				position:absolute;
+				.GLOBAL_IMAGE("icon-menu-submenu.png");
+				width:16px;
+				height:16px;
+				top:5px;
+			}
+
+			&.disabled {
+				opacity:.5;
+			}
+
+			&.checkbox {
+				padding-left:5px;
+				&:before {
+					display:inline-block;
+					width:15px;
+					content:"✓";
+					opacity:0;
+				}
+
+				&.checked {
+					&:before {
+						opacity:1;
+					}
+				}
+			}
+		}
+
+		.MenuHeader {
+			width:100%;
+			padding:0 100px 0 15px;
+			background-color: white;
+			color: #999;
+			//.SHADOW_LIGHT;
+			border-bottom-width: 0px;
+			font-weight:normal;
+			cursor:pointer;
+		}
+
+		.MenuGroup {
+			border:0px;
+			margin:0;
+			padding:0;
+		}
+
+		//	add 'Separator' class to add more space above an item
+		separator {
+			display:block;
+			position:relative;
+			height:1px;width:100%;
+			background:#ccc;
+			margin:8px 0;
+		}
+	}
+
+	.AppMenuButton {
+		height:29px;
+		line-height:30px;
+		background-color:white;
+		border-right:1px solid #ccc;
+		padding:0 6px;
+		margin:0;
+		&:hover {
+			text-decoration:underline;
+		}
+
+		&:first-child {
+			padding-left:10px;
+		}
+		&:last-child {
+			padding-right:10px;
+		}
+	}
+	html.webkit .AppMenuButton {
+		padding:0 8px;
+
+		&:first-child {
+			padding-left:12px;
+		}
+		&:last-child {
+			padding-right:12px;
+		}
+	}
+
+
+
+//
+//  "Pill" widget (rounded box, can be closeable, eg: issue categories)
+//
+	.PillMenu {
+		position:absolute;
+		display:none;
+		z-index:10000;
+		.ROUND_OUTSET_BOX;
+		.SHADOW_DARK;
+		padding:10px;
+		background:#f8f8f8;
+
+		&.hasHeader {
+			padding:0;
+		}
+
+		.Header {
+			.ROUND_OUTSET_HEADER;
+			margin-bottom:0;
+		}
+
+		.Body {
+			padding:10px;
+		}
+
+		& > .Closebox {
+			.BIG_CLOSEBOX;
+		}
+	}
+	//TODO: need to create deprecated modes
+	.PillGroup {
+		display:inline-block;
+		margin-bottom:10px;
+		margin-right:10px;
+		border:1px solid #ccc;
+		background: white;
+		padding:8px;
+		.ROUND(10px);
+		width:100%;
+
+		&:before {
+			display:block;
+			content:attr(title);
+			font-weight:bold;
+			padding-bottom:5px;
+		}
+	}
+
+	.Pill,
+	.PillField {
+		.ROUND(10px);
+		cursor:pointer;
+		display:inline-block;
+		font-size:15px;
+		background: #85BC46;
+		color: white;
+
+		padding:2px 10px 2px 10px;
+		margin:2px;
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow:ellipsis;
+
+		&[disabled] {
+			opacity:.7;
+		}
+
+		&.closeable {
+			.GLOBAL_IMAGE("searchbox-clear.png");
+			background-repeat:no-repeat;
+			background-position:2px 1px;
+			padding-left:25px;
+		}
+		&.disabled {
+			opacity:.3;
+		}
+	}
+
+
+	// in disabled fields, show grey w/no close (x)
+	output.PillDisplay {
+		min-height:30px;
+	}
+	output.PillDisplay[disabled] {
+		.Pill.closeable {
+			background-image:none;
+			padding-left:10px;
+			background:#ccc;
+			color:#444;
+		}
+	}
+
+	.Pill.deprecated {
+		background:#ccc;
+		color:#444;
+	}
+
+	.PillField {
+		input 				{	width:8em;	}
+		input[field=year] 	{	width:4em;	}
+	}
+
+	// pill inside a menu -- go to single lines
+	.menu .Pill {
+		display:block;
+	}
+
+	.PillMenu.tight {
+		.Body {
+			padding:10px;
+		}
+
+		.PillGroup {
+			padding:3px 5px;
+			margin-bottom:5px;
+			margin-right:0px;
+			&:before {
+				padding-left:8px;
+			}
+		}
+
+		.Pill {
+			padding-top:4px;
+		}
+
+		.Pill,
+		.PillField {
+			margin:1px;
+			font-size:12px;
+			height:20px;
+		}
+		.PillField input {
+			padding:0 3px;
+			border:1px solid #999;
+		}
+	}
+
+
+
+/* Tree-like things */
+	.Tree {
+		font-size:12px;
+
+		.group {
+			display:block;
+			cursor:pointer;
+			position:relative;
+		}
+
+		.group {
+			.GLOBAL_IMAGE("arrow-grey-down.png");
+			background-repeat:no-repeat;
+			background-position:4px 10px;
+		}
+
+		.group.closed {
+			.GLOBAL_IMAGE("arrow-grey-right.png");
+		}
+
+	}
+
+
+
+/* Carousel widget */
+	@CAROUSEL_FOOTER_HEIGHT : 40px;
+	.PageSlider,
+	.Carousel {
+		position:absolute;
+		left:0; right:0;
+		top:0; height:100%;
+		z-index:1;
+		overflow:hidden;
+
+		.Body {
+			position:absolute;
+			left:0; right:0;
+			top:0; bottom:@CAROUSEL_FOOTER_HEIGHT;
+			z-index:1;
+
+			.PageContainer {
+				position:absolute;
+				top:0; bottom:0px;
+				text-align:center;
+
+				& > a {
+					margin:auto;
+				}
+
+				&.prev		{		z-index:1;	}
+				&.next		{		z-index:2;	}
+				&.current	{		z-index:3;	}
+			}
+		}
+
+		&.effect-fade .Scroller {
+			.TRANSITION_OPACITY();
+		}
+
+		&.effect-stack {
+			.TRANSITION_ALL();
+
+			.PageContainer .carouselItem {
+				.ORIGIN(bottom, left);
+				display:inline-block;
+			}
+			.PageContainer.next .carouselItem {
+				.ROTATE(-3deg);
+			}
+			.PageContainer.prev .carouselItem {
+				.ROTATE(-6deg);
+			}
+		}
+
+		.Footer {
+			position:absolute;
+			left:0; right:0;
+			bottom:0; height:@CAROUSEL_FOOTER_HEIGHT;
+			text-align:center;
+			z-index:2;
+			padding-top:10px;
+		}
+
+	}
+
+
+/* PagePips widget */
+	.PagePips {
+		display:inline-block;
+
+		.Pip {
+			display:inline-block;
+			position:relative;
+			cursor:pointer;
+			width:20px; height:20px;
+			padding:5px;
+
+			& > .Circle {
+				position:relative;
+				width:10px;
+				height:10px;
+				.ROUND(5px);
+				background-color:#DDD;
+			}
+
+			&.active .Circle {
+				background-color:#666;
+			}
+		}
+	}
+
+/* Page Arrows */
+	.PageArrow.PrevArrow {
+		position:absolute;
+		left:0; top:0; bottom:0;
+		.SKIN_BTN_PREV_BIG;
+	}
+
+	.PageArrow.NextArrow {
+		position:absolute;
+		right:0; top:0; bottom:0;
+		.SKIN_BTN_NEXT_BIG;
+	}
+
+
+/* Scrollbar widget */
+	.Scrollbar {
+		display:inline-block;
+		position:relative;
+		width:100%;
+		height:20px;
+
+		.ScrollTrack {
+			position:relative;
+			width:100%;
+			height:100%;
+			background:rgba(255,255,255,.2);
+			.ROUND(10px);
+			.INSET_SHADOW_LIGHT;
+
+			.ScrollThumb {
+				position:relative;
+				height:100%;
+				background:rgba(255,255,255,.5);
+				.ROUND(10px);
+				.OUTSET_SHADOW_LIGHT;
+			}
+		}
+	}
+
+/* Chart widget */
+
+	.Chart {
+		.ROUND(5px);
+		.SHADOW;
+		background-color: white;
+		margin: 20px;
+		padding:20px;
+		display: inline-block;
+		vertical-align: top;
+
+		.Title {
+			text-align: center;
+			font-size: 30px;
+			font-weight: bold;
+		}
+		.SmallTitleText {
+			font-size: 18px;
+		}
+		.Tooltip {
+			.ROUND(5px);
+			.SHADOW;
+			background: black;
+			color: white;
+			padding: 3px;
+			opacity: 0.8;
+			display: none;
+		}
+		.Toolbar {
+			display: block;
+			float: right;
+			input {
+				.ROUND(3px);
+				font-size: 14px;
+				border: 1px solid gray;
+				text-indent: 5px;
+			}
+			.selector {
+				width: 100px;
+				margin-top: 5px;
+				text-align: left;
+				.selector-value {
+					.TWO_COLOR_GRADIENT(rgb(230,230,230), rgb(220, 220, 220));
+				}
+				.selector-menu {
+					.TWO_COLOR_GRADIENT(rgb(230,230,230), rgb(220, 220, 220));
+				}
+			}
+		}
+
+		.errorHint {
+			color: red;
+		}
+	}
+
+	.CenterCharts {
+		text-align: center;
+	}
+
+
+
+//
+//	selector -- Styled replacement for HTML <selects>
+//				See "oak/lib/Editor".
+//
+	.selector {
+		display: inline-block;
+		position: relative;
+		cursor: pointer;
+		height: 30px;
+		vertical-align:middle;
+
+		.selector-arrow {
+			position: absolute;
+			display:inline-block;
+			top:0;
+			right:0;
+			width:20px;
+			height:100%;
+			.GLOBAL_IMAGE('arrow-grey-down.png');
+			background-repeat: no-repeat;
+			background-position: 0px 4px;
+		}
+
+		// &:focus{
+		// 	border: 1px solid #fafafa;
+		// 	.BOX_SHADOW(0px 0px 5px #007eff);
+		// }
+
+		.selector-value {
+			.SHINY_BUTTON_NORMAL();
+			top: 0;
+			left: 0;
+			padding-right:25px;
+			min-width: 100px;
+			padding:7px 40px 0 15px;
+			height:28px;
+			.ROUND(15px);
+		}
+
+	// TODO: this styling doesn't look that hot...
+		.selector-menu {
+			position: absolute;
+			top:0;
+			left:0;
+			.ROUND(6px);
+			.TWO_COLOR_GRADIENT(rgb(254,254,254), rgb(238, 238, 238));
+			padding: 5px 0px 5px 0px;
+			min-width: 100px;
+			z-index: 10;
+			.SHADOW_DARK;
+		}
+
+		.selector-option {
+			text-indent: 8px;
+			border-bottom: 1px solid #ccc;
+			padding: 6px 10px 5px 0px;
+			white-space:nowrap;
+			&:hover {
+				width: 100%;
+				background: #3399ff;
+				color: white;
+			}
+		}
+
+		.selector-option:first-child {
+			.ROUND_T(6px);
+			margin-top: -5px;
+		}
+
+		.selector-option:last-child {
+			border-bottom: 0px;
+			.ROUND_B(6px);
+			margin-bottom: -5px;
+		}
+	}
+
+
+//
+//	Keyboard Shortcuts dialog
+//
+	#ShortcutsOverlay {
+		width:520px;
+		height:80%;
+		& > .Body {
+			padding:10px;
+			overflow:auto;
+		}
+		table.shortcuts {
+			width:96%;
+			margin-bottom:20px;
+			position:relative;
+			left:2%;
+			th {
+				padding:0px 5px 10px 5px;;
+				text-decoration:underline;
+			}
+			td {
+				padding:2px 5px;
+			}
+
+			.hint {
+				padding-left:10px;
+			}
+			.key {
+				width:100px;
+				text-align:right;
+				padding-right:10px;
+				white-space:nowrap;
+			}
+			td.key {
+				padding-right:20px;
+			}
+			.separator {
+				padding:0;
+			}
+			hr {
+				width:100%;
+			}
+		}
+		.name {
+			font-size:80%;
+		}
+	}
+
+
+
+
+
+////////////////////////
+//
+//	Panel widget (w/headers and footers)
+//
+////////////////////////
+
+.Panel {
+	.SHINY_PANEL();
+}
+
+
+////////////////////////
+//
+//	Modal mixin
+//
+////////////////////////
+
+.showingModally {
+	.CENTER_HORIZONTAL_WITH_MARGIN;
+	.SHADOW_DARK;
+	top:40px;
+	min-width:100px;
+	min-height:50px;
+}
+.okButton,
+.cancelButton {
+	min-width:80px;
+}
+
+
+////////////////////////
+//
+//	Alert, Confirm, Prompt, Chooser dialogs
+//
+////////////////////////
+	#Alert,
+	#Confirm,
+	#Prompt,
+	#Chooser {
+		width:500px;
+
+		& > .Body {
+			.SKIN_TITLE_FONT;
+			padding:20px;
+		}
+
+		& > .Footer > .Toolbar {
+			text-align:right;
+		}
+	}
+
+	#Prompt {
+		input {
+			margin-top:10px;
+			.SKIN_TITLE_FONT;
+			font-weight:normal;
+			padding:5px;
+			width:100%;
+		}
+	}
+
+	#Chooser {
+		& > .Body {
+			.NO_SELECT;
+		}
+		.list {
+			position:relative;
+			max-height:300px;
+			overflow-y:auto;
+			overflow-x:hidden;
+			border:1px solid #eee;
+			margin-top:5px;
+		}
+
+		.item {
+			.SKIN_BODY_FONT;
+			font-weight:normal;
+			padding:5px;
+			border-bottom:1px solid #eee;
+			cursor:pointer;
+
+			&:last-child {
+				border-bottom:0;
+			}
+
+			&.selected {
+				background-color:gold;
+				font-weight:bold;
+			}
+		}
+	}
+
+
+
+////////////////////////
+//
+//	Inline 'message' panel for widgets
+//
+////////////////////////
+
+.WidgetMessage {
+	.CENTER_WITH_MARGIN_RELATIVE;
+	.NO_SHADOW;
+	background:transparent;
+	width:100%;
+	text-align:center;
+	font-size:1.5em;
+	padding:20px;
+
+	&.error {
+		color:darkred;
+	}
+
+	&.empty {
+		color:#666;
+	}
+}
+
+
+
+////////////////////////
+//
+//	Resizer widget
+//
+////////////////////////
+
+@RESIZER_COLOR : #4b97ff;
+@RESIZER_CORNER_SIZE : 10px;
+@RESIZER_HALF_POINT  : (@RESIZER_CORNER_SIZE/2);
+.RESIZER_CORNER_HANDLE() {
+	width:@RESIZER_CORNER_SIZE; height:@RESIZER_CORNER_SIZE;
+	border:1px solid @RESIZER_COLOR;
+	background-color:white;
+	cursor:move !important;
+}
+
+.Resizer {
+	position:absolute;
+//	background:rgba(0,0,0,.1);
+	cursor:move;
+	border:1px solid @RESIZER_COLOR;
+
+	& > .Toolbar {
+		position:absolute;
+		top:-34px;
+
+		& > button.shiny {
+			margin:0;
+		}
+	}
+
+	&.Locked {
+		border-style:dashed !important;
+		.ui-resizable-handle {
+			display:none !important;
+		}
+		cursor:default !important;
+	}
+
+	&.moving,
+	&.resizing {
+		& > .Toolbar {
+			display:none;
+		}
+		& > .ui-resizable-handle {
+			opacity:.2 !important;
+		}
+	}
+
+	.ui-resizable-handle {
+		.ENABLE_MOUSE_EVENTS;
+		position:absolute;
+		width:@RESIZER_CORNER_SIZE; height:@RESIZER_CORNER_SIZE;
+		border:1px solid @RESIZER_COLOR;
+		background-color:white;
+	}
+
+	// custom styling for each handle
+	.ui-resizable-n {
+		.RESIZER_CORNER_HANDLE;
+		left:50%; top:-@RESIZER_HALF_POINT;
+		margin-left:-(@RESIZER_CORNER_SIZE/2);
+		cursor:row-resize !important;
+		z-index:1 !important;
+	}
+
+	.ui-resizable-s {
+		.RESIZER_CORNER_HANDLE;
+		left:50%; bottom:-@RESIZER_HALF_POINT;
+		margin-left:-(@RESIZER_CORNER_SIZE/2);
+		cursor:row-resize !important;
+		z-index:3 !important;
+	}
+
+	.ui-resizable-w {
+		.RESIZER_CORNER_HANDLE;
+		left:-@RESIZER_HALF_POINT; top:50%;
+		margin-top:-(@RESIZER_CORNER_SIZE/2);
+		cursor:col-resize !important;
+		z-index:1 !important;
+	}
+
+	.ui-resizable-e {
+		.RESIZER_CORNER_HANDLE;
+		right:-@RESIZER_HALF_POINT; top:50%;
+		margin-top:-(@RESIZER_CORNER_SIZE/2);
+		cursor:col-resize !important;
+		z-index:3 !important;
+	}
+
+
+	.ui-resizable-nw {
+		left:-@RESIZER_HALF_POINT; top:-@RESIZER_HALF_POINT;
+		.RESIZER_CORNER_HANDLE;
+		z-index:1 !important;
+	}
+
+	.ui-resizable-ne {
+		right:-@RESIZER_HALF_POINT; top:-@RESIZER_HALF_POINT;
+		.RESIZER_CORNER_HANDLE;
+		z-index:2 !important;
+	}
+
+	.ui-resizable-sw {
+		left:-@RESIZER_HALF_POINT; bottom:-@RESIZER_HALF_POINT;
+		.RESIZER_CORNER_HANDLE;
+		z-index:4 !important;
+	}
+	.ui-resizable-se {
+		right:-@RESIZER_HALF_POINT; bottom:-@RESIZER_HALF_POINT;
+		.RESIZER_CORNER_HANDLE;
+		z-index:4 !important;
+	}
+
+	// show different appearance/cursor when target is locked or when we're moving children around
+	&.targetLocked,
+	&.adjustingContents {
+		cursor:pointer !important;
+		border:1px dashed red !important;
+
+		.ui-resizable-handle {
+			display:block !important;
+			cursor:grab !important;
+			border-color:red !important;
+		}
+	}
+
+	&.short,
+	&.thin {
+		.ui-resizable-nw,
+		.ui-resizable-ne,
+		.ui-resizable-sw,
+		.ui-resizable-se {
+			display:none;
+		}
+	}
+	&.short {
+		border-width:0;
+		.ui-resizable-n {display:none;}
+	}
+	&.thin {
+		border-width:0;
+		.ui-resizable-w {display:none;}
+	}
+}
+
+.ResizerSelectionRect {
+	position:absolute;
+	border:1px dotted black;
+	background-color:rgba(255,0,0,.1);
+}
+
+// if the shift key is down, we should be able to click through a resizer
+html.shiftKeyDown .Resizer:not(.ui-draggable-dragging) {
+	.DISABLE_MOUSE_EVENTS;
+//	background:rgba(0,0,0,.1);
+}
+
+// hide the resizer during drag and drop
+html.dragging .Resizer {
+	display:none !important;
+}
+
+
+
+////////////////////////
+//
+//	ColorMenu
+//
+////////////////////////
+
+.ColorMenu {
+	position:absolute;
+	background-color:white;
+	padding:6px 6px 6px 6px;
+	.ROUND(10px);
+	.SHADOW_DARK;
+
+	.title {
+		text-transform: uppercase;
+		font-size:80%;
+		font-weight:bold;
+		color:#666;
+		margin-top:8px;
+	}
+
+	.row, customRow {
+		white-space:nowrap;
+	}
+
+	.cell, .customCell, .stubCell {
+		position:relative;
+		display:inline-block;
+		vertical-align:top;
+		width:30px; height:30px;
+		margin:2px;
+	}
+
+	.cell, .customCell {
+		cursor:pointer;
+		.INSET_SHADOW_LIGHT();
+		.ROUND(5px);
+		border:1px solid rgba(0,0,0,.2);
+
+		&.selected {
+			.BOX_SHADOW(0 0 5px rgba(0,0,0,.5));
+		}
+
+		&[color=transparent]:after {
+			position:absolute;
+			color:#999;
+			width:30px;
+			top:10px;
+			content:"none";
+			font-size:10px;
+			text-align:center;
+		}
+	}
+
+	.customCell.empty {
+		padding-top:8px;
+		font-weight:bold;
+		text-align:center;
+		color:#ccc;
+
+		&:after {
+			position:relative;
+			content:"?";
+			width:100%;
+		}
+	}
+
+	.editRow {
+		margin:8px 0 2px 0;
+		padding:5px 0;
+		white-space:nowrap;
+		border:1px solid #ccc;
+		.ROUND(8px);
+
+
+		.title {
+			margin-left:10px;
+			display:inline-block;
+		}
+		input {
+			margin-left:5px;
+			width:100px;
+		}
+		button {
+			width:60px;
+			font-size:80%;
+		}
+	}
+}
+
+
+
+////////////////////////
+//
+//	ColorChip button
+//
+////////////////////////
+button.ColorChip {
+	display:inline-block;
+	width:50px;
+	height:20px;
+	padding-right:0;
+	.ROUND(5px);
+	.SHINY_BUTTON_SHADOW();
+	border:1px solid #333;
+
+	&.color-transparent {
+		background-color:#eee !important;
+		&:after {
+			position:absolute;
+			left:0; top:0px;
+			width:100%;
+			content:"none";
+			color:#666;
+			font-size:10px;
+			text-align:center;
+		}
+	}
+}
+
+
+////////////////////////
+//
+//	Uploader widget
+//
+////////////////////////
+.Uploader {
+	height:100%;
+	text-align:center;
+	padding-top:8px;
+
+	// dragging files over the document, but not over us
+	&.dragging {
+		.SKIN_OUTLINE_SELECTED;
+		font-weight:bold;
+	}
+
+	// dragging files over our $root
+	&.active {
+		.SKIN_OUTLINE_SELECTED() !important;
+		font-weight:bold;
+	}
+
+	// actual uploading going on
+	&.uploading {
+		.SKIN_OUTLINE_SELECTED() !important;
+		font-weight:bold;
+	}
+
+}
+
+
+////////////////////////
+//
+//	PageSelector widget
+//
+////////////////////////
+.PageSelector {
+	.Pager {
+		margin:5px;
+	}
+
+	.Pager.off {
+		display:none;
+	}
+
+	.Pager.active {
+		font-weight:bold;
+	}
+
+	.Pager:not(.active) {
+		text-decoration:underline;
+		cursor:pointer;
+	}
+}
+
+
+
+////////////////////////
+//
+//	CollectionListViewer widget
+//
+////////////////////////
+.CollectionListViewer {
+	.NO_SELECT;
+	.item {
+		position:relative;
+		cursor:pointer;
+		padding:4px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		.ROUND(4px);
+
+		&.selected {
+			background-color:gold;
+		}
+	}
+}
+
+////////////////////////
+//
+//	TreeViewer widget
+//
+////////////////////////
+.TreeViewer {
+	.CollectionListViewer;
+
+	.parent,
+	.child {
+		position:relative;
+		cursor:pointer;
+		padding:4px 4px 2px 4px;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		.ROUND(4px);
+	}
+
+	.parent {
+		cursor:pointer;
+		margin-left:15px;
+		font-weight:bold;
+	}
+	.group:not(.closed) {
+		padding-bottom:6px;
+	}
+
+	.child {
+		cursor:pointer;
+		margin-left: 25px;
+	}
+
+	// normal groups show with an open arrow (pointing down)
+	.group {
+		.GLOBAL_IMAGE("icn-small-group-arrow-open.png");
+		background-repeat:no-repeat;
+		background-position:3px 3px;
+	}
+
+	// closed groups show with a closed arrow (pointing right)
+	.group.closed {
+		.GLOBAL_IMAGE("icn-small-group-arrow-closed.png");
+		.child {
+			display:none;
+		}
+	}
+}
+
+
+
+////////////////////////
+//
+//	TasksDisplay / TaskList
+//
+////////////////////////
+#TasksDisplay {
+	min-height:100px;
+	max-height:500px;
+
+	& > .Body {
+		padding:20px;
+		font-family:monospace;
+		overflow:auto;
+		position:relative;
+		max-height:450px;
+	}
+
+	.TaskList, .Task {
+		&[status=pending]:before {
+			color:darkblue;
+		}
+
+		&[status=resolved]:before {
+			color:darkgreen;
+		}
+
+		&[status=rejected]:before {
+			color:darkred;
+		}
+
+		&[status=unstarted]:before {
+			color:grey;
+		}
+	}
+
+	.TaskList {
+		&:before {
+			position:relative;
+			left:-20px;
+			display:block;
+			content:attr(hint) " " attr(name);
+		}
+		padding-left:20px;
+	}
+
+	.Task {
+		&:before {
+			display:block;
+			content:attr(hint) " " attr(name);
+		}
+	}
+}

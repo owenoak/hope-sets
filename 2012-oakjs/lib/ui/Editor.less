@@ -1,0 +1,337 @@
+@import "../../skin/base/skin.less";
+//
+//	Editor widget
+//
+
+.Editor {
+	font-size: 16px;
+
+	table.fixed {
+		table-layout:fixed;
+	}
+
+	h2,h3 {
+		font-weight:bold;
+		font-size:1.2em;
+		border-bottom:1px solid #ccc;
+		margin:20px 0 5px 0;
+		&:first-child {
+			margin-top:0;
+		}
+	}
+
+	.editorTable {
+		width: 100%;
+		border-collapse:collapse;
+
+		td,th {
+			height:35px;
+			.NO_SELECT;
+		}
+
+		tr.spacer td {
+			height:20px;
+		}
+
+		th {
+			white-space:nowrap;
+		}
+
+		.label {
+			text-align:right;
+			padding-left:20px;
+			cursor:default;
+//			color:@EDITOR_LABEL_COLOR;
+			white-space:nowrap;
+			vertical-align:middle;
+		}
+
+		td.input {
+			width:100%;
+			padding-right:10px;
+		}
+
+		td.input.tight {
+			white-space:nowrap;
+			width:auto;
+		}
+
+		td.output {
+			width:100%;
+			padding-right:10px;
+		}
+
+		td.select {
+			width:100%;
+			padding-right:10px;
+		}
+
+		td.spacer {
+			padding:0;
+			height:auto;
+		}
+
+		td.center {
+			text-align:center;
+		}
+
+		td.left {
+			text-align:left;
+		}
+
+		td.colHeader {
+			text-align:left;
+			font-weight:bold;
+			border-bottom:1px solid #ccc;
+		}
+
+		td.rowHeader {
+			text-align:right;
+			font-weight:bold;
+			border-left:1px solid #ccc;
+		}
+
+		td.cell {
+			text-align:left;
+			border:1px solid #ccc;
+		}
+
+		td.actions {
+			white-space:nowrap;
+		}
+
+		td.checkbox {
+			padding-left:20px;
+		}
+
+		label.checkbox,
+		label.radio,
+		td.checkbox label,
+		td.radio label {
+			cursor:pointer;
+		}
+
+		th.indentSmall,
+		td.indentSmall {
+			padding-left:10px !important;
+		}
+		th.indent,
+		td.indent {
+			padding-left:20px !important;
+		}
+		th.indentLarge,
+		td.indentLarge {
+			padding-left:50px !important;
+		}
+
+		th.inset,
+		td.inset {
+			padding:10px;
+		}
+
+		td.padTop,
+		th.padTop,
+		tr.padTop > td,
+		tr.padTop > th {
+			padding-top:10px !important;
+		}
+
+		td.padBottom,
+		th.padBottom,
+		tr.padBottom > td,
+		tr.padBottom > th {
+			padding-bottom:10px !important;
+		}
+
+		td.underline,
+		th.underline {
+			border-bottom:1px solid #ccc;
+		}
+		td.overline,
+		th.overline {
+			border-top:1px solid #ccc;
+		}
+
+		th {
+			padding-top:5px;
+			font-weight:bold;
+			&.right {
+				text-align:right;
+				padding-right:5px;
+			}
+		}
+
+	}
+
+	hr {
+		border:0px solid #ddd;
+		border-top-width:1px;
+		width:98%;
+	}
+
+	img {
+		vertical-align:middle;
+	}
+
+	.hint {
+		color: @EDITOR_HINT_COLOR;
+		font-style:italic;
+	}
+
+
+	.error {
+		font-weight:bold;
+		font-style:italic;
+		color:darkred;
+		background:pink;
+		.ROUND(5px);
+	}
+
+	.smaller {
+		font-size: 12px;
+	}
+
+	.center {
+		text-align:center;
+	}
+
+
+	output {
+		.SELECTABLE;
+		display:inline-block;
+		color:black;
+		padding-left:4px;
+		vertical-align:middle;
+	}
+
+	input.autoWidth,
+	select.autoWidth {
+		width:auto;
+	}
+
+	input[type=text],
+	input[type=password],
+	textarea,
+	output.editable,
+	select {
+		width:100%;
+		font-size:inherit;
+	}
+
+	input[type=text],
+	input[type=number],
+	input[type=password],
+	textarea,
+	output.editable {
+		.FIELD_SHADOW;
+		border:0px;
+		padding:5px;
+		.ROUND(3px);
+		background:#f8f8f8;
+		vertical-align:middle;
+		font-family:inherit;
+		font-size: inherit;
+
+		&.disabled,
+		&[disabled] {
+			.NO_SHADOW;
+			border:1px solid #eee;
+			background:none;
+			color:black;
+		}
+	}
+
+	input[type=number] {
+		width:5em;
+		text-align:right;
+
+		&[units]:after {
+			padding-right:5px;
+			content:attr(units);
+		}
+	}
+
+	input:focus,
+	textarea:focus,
+	output.editable:hover {
+		background:white;
+	}
+
+	input::-moz-placeholder,
+	textarea::-moz-placeholder {
+		color:rgba(0,0,0,.4);
+		font-style:italic;
+	}
+
+	textarea {
+		margin:0 10px;
+	}
+
+	button {
+		vertical-align:middle;
+	}
+
+	.innerTable {
+		border-collapse:collapse;
+		td.label {
+			padding:2px;
+			text-align:center;
+			height:15px;
+		}
+		td.bordered {
+			border:1px solid #ccc;
+			padding:2px 10px;
+		}
+	}
+
+	output.check {
+		width:27px;
+		height:27px;
+		vertical-align:middle;
+		margin-right:5px;
+		cursor:default;
+
+		div {
+			width:27px;
+			height:27px;
+			display:inline-block;
+			background-repeat:no-repeat;
+
+			&.ok {
+				.GLOBAL_IMAGE("check-green.png");
+			}
+			&.bad {
+				.GLOBAL_IMAGE("check-off.png");
+			}
+		}
+	}
+
+	.EditorToolbar {
+		text-align:center;
+	}
+
+	.headerRow {
+		border:1px solid rgba(0,0,0,.3);
+		border-width:1px 0;
+		background:rgba(0,0,0,.1);
+
+		.header {
+			padding:10px;
+			font-weight:bold;
+		}
+	}
+
+	.spacerRow {
+		td {
+			height:10px;
+		}
+	}
+
+	.resultsRow {
+		td {
+			height:100%;
+			vertical-align:top;
+			padding:5px;
+		}
+	}
+}
