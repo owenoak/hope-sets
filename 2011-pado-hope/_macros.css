@@ -1,0 +1,144 @@
+/* including macros */
+.noTapHighlight {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.tapHighlightGold {
+  -webkit-tap-highlight-color: rgba(230, 181, 70, 0.5);
+}
+[selectable=yes] {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
+/* shadow from above */
+.verticalShadow {
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.8);
+}
+.fieldShadow {
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+.outsetShadow {
+  -moz-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
+}
+.insetPanel {
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 2px;
+}
+.insetPanelHeader {
+  padding: 5px;
+}
+.insetPanelContainer {
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 10px;
+}
+/* standard button height/line-height */
+.button-ish {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  display: inline-block;
+  height: 30px;
+  line-height: 29px;
+}
+.boxChild {
+  display: block;
+  position: relative;
+  box-flex: 0;
+  -webkit-box-flex: 0;
+  -moz-box-flex: 0;
+}
+.hCenterBox {
+  position: relative;
+  display: box !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-align: start;
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -webkit-box-flex: 0;
+  -moz-box-flex: 0;
+  box-flex: 0;
+}
+.vCenterBox {
+  position: relative;
+  display: box !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -webkit-box-flex: 0;
+  -moz-box-flex: 0;
+  box-flex: 0;
+}
+.centerChildren {
+  position: relative;
+  display: box !important;
+  display: -webkit-box !important;
+  display: -moz-box !important;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  width: 100%;
+  height: 100%;
+}
+.noflex {
+  -webkit-box-flex: 0;
+  -moz-box-flex: 0;
+  box-flex: 0;
+}
+.spring {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+}
+.backgroundFullWidth {
+  background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -webkit-background-size: 100% 100%;
+}
+.backgroundCover {
+  background-repeat: no-repeat;
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: 100% 100%;
+  -webkit-background-size: cover;
+}
+.backgroundContain {
+  background-repeat: no-repeat;
+  background-size: contain;
+  -moz-background-size: contain;
+  -webkit-background-size: 100% 100%;
+  -webkit-background-size: contain;
+}
+.clearAppearance {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

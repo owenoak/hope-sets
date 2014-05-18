@@ -1,0 +1,374 @@
+/* including macros */
+	// border-box styling
+	.borderBox() {
+		-moz-box-sizing:border-box;
+		-webkit-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+
+	// border-box styling
+	.contentBox() {
+		-moz-box-sizing:content-box;
+		-webkit-box-sizing:content-box;
+		box-sizing:content-box;
+	}
+	
+ 
+ 	// make things non-selectable
+ 	.noselect() {
+		-moz-user-select:-moz-none;
+		-webkit-user-select:none;
+
+ 	}
+ 	
+ 	// make this thing accelerated by the GPU
+	.gpuAccelerate {
+//	 	-webkit-transform-style: preserve-3d;
+//-webkit-transform:translate3d(0,0,0);
+//-webkit-transform:translateZ(0)
+	}
+ 	
+ 	// remove tap highlight color on ios
+ 	.noTapHighlight {
+		-webkit-tap-highlight-color: rgba(0,0,0,0); 	
+ 	}
+
+	.tapHighlightGold {
+		-webkit-tap-highlight-color: rgba(230,181,70,0.5); 	
+ 	}
+ 
+ 	// make things explicitly selectable
+ 	.selectable() {
+		-moz-user-select:text;
+		-webkit-user-select:text;
+ 	}
+
+ 	[selectable=yes] {
+ 		.selectable;
+ 	}
+ 
+ 
+ 	// round corners in a cross-platform way
+	.round(@radius:5px) {
+		-webkit-border-radius: @radius;
+		-moz-border-radius: @radius;
+		border-radius: @radius;	
+	}
+
+	.roundTop(@radius:5px) {
+		-moz-border-radius-topright: @radius;
+		-moz-border-radius-topleft: @radius;
+		-webkit-border-top-right-radius: @radius;
+		-webkit-border-top-left-radius: @radius;
+	}
+
+	.roundTL(@radius:5px) {
+		-moz-border-radius-topleft: @radius;
+		-webkit-border-top-left-radius: @radius;
+	}
+
+	.roundTR(@radius:5px) {
+		-moz-border-radius-topright: @radius;
+		-webkit-border-top-right-radius: @radius;
+	}
+
+	.roundBottom(@radius:5px) {
+		-moz-border-radius-bottomright: @radius;
+		-moz-border-radius-bottomleft: @radius;
+		-webkit-border-bottom-right-radius: @radius;
+		-webkit-border-bottom-left-radius: @radius;
+	}
+
+	.roundBL(@radius:5px) {
+		-moz-border-radius-bottomleft: @radius;
+		-webkit-border-bottom-left-radius: @radius;
+	}
+
+	.roundBR(@radius:5px) {
+		-moz-border-radius-bottomright: @radius;
+		-webkit-border-bottom-right-radius: @radius;
+	}
+
+	.roundLeft(@radius:5px) {
+		-moz-border-radius-topleft: @radius;
+		-moz-border-radius-bottomleft: @radius;
+		-webkit-border-top-left-radius: @radius;
+		-webkit-border-bottom-left-radius: @radius;
+	}
+
+	.roundRight(@radius:5px) {
+		-moz-border-radius-topright: @radius;
+		-moz-border-radius-bottomright: @radius;
+		-webkit-border-top-right-radius: @radius;
+		-webkit-border-bottom-right-radius: @radius;
+	}
+
+
+
+	// normal shadow specified in pieces
+	.shadow(@x:0px, @y:3px, @blur:5px, @color:rgba(0, 0, 0, 0.4)) {
+		  box-shadow: @x @y @blur @color;
+		  -moz-box-shadow: @x @y @blur @color;
+		  -webkit-box-shadow: @x @y @blur @color;
+	}
+
+	// darker version of normal shadow shadow specified in pieces
+	.darkshadow(@x:0px, @y:3px, @blur:5px, @color:rgba(0, 0, 0, 0.7)) {
+		  box-shadow: @x @y @blur @color;
+		  -moz-box-shadow: @x @y @blur @color;
+		  -webkit-box-shadow: @x @y @blur @color;
+	}
+
+	/* shadow from above */
+	.verticalShadow {
+		.shadow(0px,3px,7px,rgba(0, 0, 0, 0.8));
+	}
+	
+	// normal shadow, specified all at once
+	.boxShadow(@params) {
+		  box-shadow: @params;
+		  -moz-box-shadow: @params;
+		  -webkit-box-shadow: @params;
+	}
+
+	// double shadow
+	.boxShadow2(@params, @params2) {
+		  box-shadow: @params , @params2;
+		  -moz-box-shadow: @params , @params2;
+		  -webkit-box-shadow: @params , @params2;
+	}
+
+
+ 	// field inset shadow
+ 	.fieldShadow {
+		-moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+		-webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.9);
+ 	}
+ 	
+ 	
+	// outset shadow
+ 	.outsetShadow {
+		-moz-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
+		-webkit-box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.9);
+ 	}
+
+	
+	// nice inset panel look
+	.insetPanel {
+		.fieldShadow;
+		background:rgba(255,255,255,.5);
+		.round(10px);
+		padding:2px;
+	}
+
+	.insetPanelHeader {
+		padding: 5px;	
+	}
+
+	.insetPanelContainer {
+		.round(8px);
+		background:rgba(255,255,255,.3);
+		padding: 10px;
+	}
+
+	.insetPanelFooter {}
+
+ 	
+	// poster shadow: both inset and outset
+	.posterShadow() {
+		  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9), inset 2px 0px 5px rgba(0, 0, 0, 0.6;
+		  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9), inset 2px 0px 5px rgba(0, 0, 0, 0.6);
+	}
+
+
+	// border image
+	.borderImage(@url, @size, @borderSize, @repeat:repeat) {
+		border-color:transparent;
+		border-width:@borderSize;
+		border-image:@url @size @repeat;
+		-moz-border-image:@url @size @repeat;
+		-webkit-border-image:@url @size @repeat;
+	}
+	
+	// special: iOS button border image
+	.ButtonBorder(@url) {
+		.borderImage(@url, 0 5 0 5, 0px 5px 0px 5px, round stretch);
+	}
+
+	
+	// special:  iOS nav-back button
+	.NavBackBorder(@url) {
+		.borderImage(@url, 0 13 0 17, 0px 13px 0px 17px);
+	}
+
+	// special:  iOS nav-forward button
+	.NavForwardBorder(@url) {
+		.borderImage(@url, 0 17 0 13, 0px 17px 0px 13px);
+	}	
+
+
+	// special:  iOS segment control start
+	.SegmentStart(@url) {
+		.borderImage(@url, 0 1 0 6, 0px 1px 0px 6px);
+	}
+
+	// special:  iOS segment middle
+	.Segment(@url) {
+		.borderImage(@url, 0 1 0 1, 0px 1px 0px 1px);
+	}
+
+	// special:  iOS segment control end
+	.SegmentEnd(@url) {
+		.borderImage(@url, 0 6 0 1, 0px 6px 0px 1px);
+	}
+	
+	/* standard button height/line-height */
+	.button-ish {
+		.noTapHighlight;
+		display:inline-block;
+		height:30px;
+		line-height: 29px;
+	}	
+	
+	
+	// rotate a certain number of degrees
+	.rotate(@degrees) {
+		-moz-transform:rotate(@degrees);
+		-webkit-transform:rotate(@degrees);
+	}
+
+	// translate a bit
+	.translate(@left:0, @top:0) {
+		-moz-transform:translate(@left, @top);
+		-webkit-transform:translate(@left, @top);
+	}
+
+	// transfor origin
+	.origin(@x:0, @y:0) {
+		-webkit-transform-origin:@x @y;
+		-moz-transform-origin:@x @y;
+	}
+	
+	
+	
+	// vertical stretch box
+	.box(@direction:vertical, @align:start) {
+		position:relative;
+
+		display: box !important;
+		display: -webkit-box !important;
+		display: -moz-box !important;
+
+		box-orient: @direction;
+		-webkit-box-orient: @direction;
+		-moz-box-orient: @direction;
+
+		box-align: @align;
+		-webkit-box-align: @align;
+		-moz-box-align: @align;		
+	}
+
+	// vertical stretch box
+	.display-box() {
+		display: box !important;
+		display: -webkit-box !important;
+		display: -moz-box !important;
+	}
+
+	.boxDirection(@direction:vertical) {
+		box-orient: @direction;
+		-webkit-box-orient: @direction;
+		-moz-box-orient: @direction;
+	}
+	
+	.boxAlign( @align:start) {
+		box-align: @align;
+		-webkit-box-align: @align;
+		-moz-box-align: @align;		
+	}
+
+	.boxPack(@pack:center) {
+		box-pack: @pack;
+		-webkit-box-pack: @pack;
+		-moz-box-pack: @pack;
+	}
+	
+	.boxChild {
+		display: block;
+		position:relative;
+		box-flex: 0;
+		-webkit-box-flex: 0;
+		-moz-box-flex: 0;
+	}
+	
+	.hCenterBox {
+		.box(horizontal,start);
+		.boxPack(center);
+		.flex(0);
+	}
+
+	.vCenterBox {
+		.box(vertical,center);
+		.boxPack(center);
+		.flex(0);
+	}
+	
+	.centerChildren {
+		.box(horizontal,center);
+		.boxPack(center);
+		width:100%; height:100%;
+	}
+
+	
+	// box flex
+	.flex(@amount:1) {
+		-webkit-box-flex: @amount;
+		-moz-box-flex: @amount;
+		box-flex: @amount;
+	}
+
+	.urgentFlex(@amount:1) {
+		-webkit-box-flex: @amount !important;
+		-moz-box-flex: @amount !important;
+		box-flex: @amount !important;
+	}
+
+	.noflex {
+		.flex(0);
+	}
+	
+	.spring {
+		.flex(1);
+	}
+
+
+
+	// background adapts to element size
+	.backgroundFullWidth {
+		background-size: 100% 100%;
+		-moz-background-size: 100% 100%;
+		-webkit-background-size: 100% 100%;
+	}
+
+	.backgroundCover {
+		background-repeat:no-repeat;
+		background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: 100% 100%;
+		-webkit-background-size: cover;
+	}
+
+	.backgroundContain {
+		background-repeat:no-repeat;
+		background-size: contain;
+		-moz-background-size: contain;
+		-webkit-background-size: 100% 100%;
+		-webkit-background-size: contain;
+	}
+
+
+ 	// remove the default appearance
+ 	.clearAppearance {
+		-moz-appearance:none;
+		-webkit-appearance:none;
+ 	}

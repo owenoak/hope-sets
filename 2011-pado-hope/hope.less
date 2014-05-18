@@ -1,0 +1,1874 @@
+@import "_macros.less";
+
+
+/*** Generic css for hope project ***/
+	* {
+		.borderBox;
+		.noselect;
+	}
+
+	html {
+		width: 100%;
+		height: 100%;	
+	}
+	
+	body {
+		margin:0px; 
+		width: 100%;
+		height: 100%;
+		line-height: 1.2;
+	}
+
+	table {	
+		font-size:inherit;
+		font-style:inherit;
+		font-variant:inherit;
+		font-weight:inherit;
+	}
+
+
+	/* make input boxes selectable */
+	input {
+		.selectable;
+		line-height: 1.4;
+	}
+
+	textarea {
+		.selectable;
+	}
+	
+	input[disabled],
+	textarea[disabled] 
+	{
+		background-color:#eee;
+		border:1px solid #ccc;
+	}
+	
+	/* add flex to an element by giving it a flex attribute */
+	*[flex]		 	{	.urgentFlex(1);	}
+	*[flex='1'] 	{	.urgentFlex(1);	}
+	*[flex='2'] 	{	.urgentFlex(2);	}
+	*[flex='3'] 	{	.urgentFlex(3);	}
+	*[flex='4'] 	{	.urgentFlex(4);	}
+	*[flex='5'] 	{	.urgentFlex(5);	}
+
+
+	/* center (inline-block) children by adding @center attribute */
+	*[center]		{	text-align:center;	}
+
+	// default-block stuff
+	hope-section,
+	hope-container,
+	hope-header,
+	hope-footer,
+	hope-ui,
+	hope-border,
+	hope-group,
+	hope-notice,
+	hope-panel,
+	hope-title,
+	hope-splitter,
+	hope-keymap
+	{
+		position:relative;
+		display:block;
+	}
+
+	// inline-block things
+	hope-inline,
+	hope-label,
+	hope-output,
+	hope-value,
+	hope-tabselector,
+	hope-message
+	{
+		display:inline-block;
+	}
+	
+
+
+/*** horizontal and vertical stretch boxes ***/
+
+	/* add layout=vertical to make children fill the space vertically and stretch horizontally */
+	*[layout=vertical] {}
+
+	*[layout=vertical] > hope-container,
+	hope-group[layout=vertical]
+	{
+		.box(vertical,stretch);
+	}
+	*[layout=vertical] > hope-container > * {
+//		display: block;
+	}
+
+	/* add layout=vcenter to make children fill the space vertically and center horizontally */
+	*[layout=vcenter] {}
+	
+	*[layout=vcenter] > hope-container,
+	hope-group[layout=vcenter]
+	{
+		.box(vertical,center);
+	}
+	*[layout=vcenter] > hope-container > * {
+//		display: block;
+	}
+
+
+	/* add layout=horizontal to make children fill the space horizontally and stretch vertically */
+	*[layout=horizontal] {}
+
+	*[layout=horizontal] > hope-container,
+	hope-group[layout=horizontal]
+	{
+		.box(horizontal,stretch);
+	}
+	*[layout=horizontal] > hope-container > * {
+//		display: block;
+	}
+
+	/* add layout=hcenter to make children fill the space horizontally and center vertically */
+	*[layout=hcenter] {}
+
+	*[layout=hcenter] > hope-container,
+	hope-group[layout=hcenter]
+	{
+		.box(vertical,stretch);
+	}
+	*[layout=hcenter] > hope-container > * {
+//		display: block;
+	}
+
+	/* add layout=center to make children center horizontally and vertically.  
+		You'll need a nested <hope-container> for this to work. 
+	*/
+	*[layout=center] {
+		.box(vertical,center);
+		position:absolute;
+		width: 100%;
+		height: 100%;
+	}
+	*[layout=center] > hope-container {
+		.flex;
+		.box(horizontal,center);
+		height: 100%;
+	}
+	*[layout=center] > hope-container > * {
+		display: block;
+	}
+
+
+
+	// deprecated
+	hope-vbox {
+		.box(vertical,stretch);
+	}
+	
+
+
+/*** Blocks of inline javascript or xml ***/
+	 hope-js,
+	 hope-properties,
+	 hope-set,
+	 hope-get,
+	 hope-on,
+	 hope-scriptLoader
+	 {
+		display:none;
+	 }
+
+	hope-dataset {	
+		display:block; 
+	}
+
+
+/*** Generic attribute stuff ***/
+
+
+	/* hide things with [visible=no] */
+	*[visible=no] {
+		display:none !important;
+	}
+
+	hope-hcenter
+	{
+		.hCenterBox;
+	}
+	
+	hope-vcenter {
+		.vCenterBox;
+	}
+
+
+/*** add scrolling (doesn't work on iOS -- YET)  ***/
+	*[scroll]				{	overflow-x:auto;	overflow-y:auto;	}
+	*[scroll=horizontal] 	{	overflow-x:auto; 	overflow-y:hidden;	}
+	*[scroll=vertical] 		{	overflow-x:hidden; 	overflow-y:auto;	}
+
+
+/*** generic hope-mask, centers contents horizontally and vertically.  dark hope-mask.  ***/
+	hope-mask {
+		.vCenterBox;
+		width:100%; height:100%;
+		background-color:rgba(0,0,0,.3);
+	}
+	
+/*** circle-closer-thingie ***/
+	.circleCloser {
+		display:block;
+		position:absolute;
+		width:42px; height:42px;
+		left:-20px; top:-20px;
+		background:url(theme/ios/closebox-large.png) no-repeat;
+		z-index:10;
+		cursor:pointer;	
+	}
+	
+
+/*** ad-hoc tables ***/
+	// set of united rows (more-or-less a table)
+	rows {
+		display: table !important;
+		width: 100%;
+		border-collapse:collapse;
+	}
+
+	row {
+		display:table-row !important;
+		width:100%;
+	}
+	
+	row > * {
+		display:table-cell !important;
+		vertical-align:baseline;
+	}
+
+	row > row {
+		display:table-row !important;
+	}
+
+	// add a 'flex' attribute to things inside a <row> to make them full width
+	row > *[flex] {
+		width:100%;
+	}
+
+
+	cell {
+		display: table-cell !important;
+	}
+
+/*** Generic inputs ***/
+
+	input[type=text],
+	input[type=currency],
+	input[type=password],
+	input[type=url],
+	input[type=urlfragment],
+	textarea
+	{
+		.fieldShadow;		
+		.round(5px);
+		-moz-appearance:none;
+		border:0px;
+		padding:5px;
+		margin: 2px 0;
+	}
+	
+	input[appearance~=translucent] {
+		background-color: rgba(255, 255, 255, 0.3);
+		color: white;
+	}
+
+
+
+/*** Search-style input ***/
+
+	.gecko input[type=search] {
+		.clearAppearance;
+		.fieldShadow;
+		.round(12px);
+		height:24px;
+		border:0px;
+		background:url(theme/ios/field-searchIcon.png) white no-repeat 5px center;
+		padding-left:30px;
+		min-width: 80px;
+	}
+
+/*** <ui> is the outer hope-container of our user interface ***/
+	hope-ui {
+		position:absolute;
+		left:0; top:0; width:100%; height:100%;
+	}
+	hope-ui > hope-container {
+		width:100%; height:100%;
+		position:absolute;
+		.box(horizontal, stretch);
+	}
+
+
+
+/*** [appearance=inset] for sections, editors, etc ***/
+
+	*[appearance~=inset] {
+		.insetPanel;
+	}
+
+	*[appearance~=inset] > hope-header {
+		.insetPanelHeader;
+	}
+
+	*[appearance~=inset] > hope-container {
+		.insetPanelContainer;
+	}
+
+	*[appearance~=inset] > hope-footer {
+		.insetPanelFooter;
+	}
+
+	/* center and enlarge title of inset hope-panel */
+	*[appearance~=inset] > hope-header > label {
+		display: block;
+		font-weight: bold;
+		text-align:center;
+		font-size: 150%;
+	}
+
+
+
+/*** Action elements - basically, buttons ***/
+
+
+	/* default for actions is to look like buttons */
+		hope-action {
+			.button-ish;
+			position:relative;
+//			border:1px outset black;
+			cursor:pointer;
+			white-space:nowrap;
+			background-color:none;
+		}
+		
+		hope-action > hope-description {
+			display: none;
+		}
+
+		hope-action[disabled] {
+			opacity: .2;
+		}
+		
+		hope-action:hover {}
+		
+		hope-action:active,
+		hope-action.active
+		{
+			color:black;
+		    text-shadow: rgba(255, 255, 255, 0.4) 0px -1px 0;
+		}
+
+
+		hope-action[icon] {
+			padding:0 5px;
+		}
+
+		hope-action[label] {
+			padding:0 10px;
+		}
+		
+		hope-action[icon][label] {
+			padding:0 5px;		
+		}
+		hope-action[icon][label] > hope-icon {
+			left: -3px;
+		}
+
+		hope-action[icon][label][iconright] > hope-icon {
+			float:right;
+			left: 5px;
+		}
+
+		hope-action label {
+			padding:0 5px;
+		}
+
+
+		hope-action[appearance~=link] {
+			text-decoration:underline;
+			padding:0px;
+		}
+
+		hope-action[appearance~=black],
+		hope-action[appearance~=blue],
+		hope-action[appearance~=lightBlue],
+		hope-action[appearance~=red],
+		hope-action[appearance~=green],
+		hope-action[appearance~=yellow],
+		hope-action[appearance~=white]
+		{
+			color:white;
+		    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+			margin-left:2px;
+		    margin-right:2px;
+		}
+
+
+		hope-action[appearance~=black]
+		{
+			.ButtonBorder(url(theme/ios/btn-black.png));
+		}
+
+		hope-action[appearance~=black]:hover
+		{
+			.ButtonBorder(url(theme/ios/btn-black-active.png));
+		}
+
+		hope-action[appearance~=black]:active,
+		hope-action[appearance~=black].active
+		{
+			.ButtonBorder(url(theme/ios/btn-yellow-active.png));
+			color:black;
+		}
+		
+
+		hope-action[appearance~=blue] {
+			.ButtonBorder(url(theme/ios/btn-blue.png));
+		}
+
+		hope-action[appearance~=blue]:active,
+		hope-action[appearance~=blue].active {
+			.ButtonBorder(url(theme/ios/btn-blue-active.png));
+		}
+
+		hope-action[appearance~=blue][selected] {
+			.ButtonBorder(url(theme/ios/btn-lightBlue.png));
+		}
+
+		hope-action[appearance~=blue][selected]:active,
+		hope-action[appearance~=blue][selected].active {
+			.ButtonBorder(url(theme/ios/btn-lightBlue-active.png));
+		}
+
+		hope-action[appearance~=lightBlue] {
+			.ButtonBorder(url(theme/ios/btn-lightBlue.png));
+		}
+
+		hope-action[appearance~=lightBlue]:active,
+		hope-action[appearance~=lightBlue].active {
+			.ButtonBorder(url(theme/ios/btn-lightBlue-active.png));
+		}
+
+		hope-action[appearance~=red] {
+			.ButtonBorder(url(theme/ios/btn-red.png));
+		}
+
+		hope-action[appearance~=red]:active,
+		hope-action[appearance~=red].active {
+			.ButtonBorder(url(theme/ios/btn-red-active.png));
+		}
+
+		hope-action[appearance~=green] {
+			.ButtonBorder(url(theme/ios/btn-green.png));
+		}
+
+		hope-action[appearance~=green]:active,
+		hope-action[appearance~=green].active {
+			.ButtonBorder(url(theme/ios/btn-green-active.png));
+		}
+
+		hope-action[appearance~=yellow] {
+			.ButtonBorder(url(theme/ios/btn-yellow.png));
+			color:black;
+		}
+
+		hope-action[appearance~=yellow]:active,
+		hope-action[appearance~=yellow].active {
+			.ButtonBorder(url(theme/ios/btn-yellow-active.png));
+			color:black;
+		}
+
+		hope-action[appearance~=white] {
+			.ButtonBorder(url(theme/ios/btn-white.png));
+		}
+
+		hope-action[appearance~=white]:active,
+		hope-action[appearance~=white].active {
+			.ButtonBorder(url(theme/ios/btn-white-active.png));
+		}
+
+
+		hope-action[appearance~=prev] {
+			overflow:hidden;
+			color:white;
+		    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+		    padding:0;
+		    margin-right:5px;
+		    text-align:center;
+
+			.NavBackBorder(url(theme/ios/nav-back-black.png);
+		}
+
+
+		hope-action[appearance~=prev]:active,
+		hope-action[appearance~=prev].active {
+			.NavBackBorder(url(theme/ios/nav-back-black-active.png);
+		}
+		
+		
+		hope-action[appearance~=next] {
+			overflow:hidden;
+			color:white;
+		    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+		    padding:0px;
+		    margin-right:5px;
+		    text-align:center;
+			.NavForwardBorder(url(theme/ios/nav-forward-black.png);
+		}
+
+		hope-action[appearance~=next]:active,
+		hope-action[appearance~=next].active {
+			.NavForwardBorder(url(theme/ios/nav-forward-black-active.png);
+		}
+
+		
+		
+
+
+/*** hope-scroller for some content ***/
+
+	hope-scroller {
+		display:block;
+		position:absolute;
+		-webkit-transition:-webkit-transform cubic-bezier(0,0,0.25,1) 0;
+		cursor:move;
+	}
+
+	hope-scroller[direction=vertical] {
+		width:100%;
+		min-height:100%;
+	}
+
+	hope-scroller[direction=horizontal] {
+		min-width: 100%;
+		height:100%;
+	}
+
+	hope-scroller[direction=vertical].scrolling * {
+		cursor:row-resize !important;
+	}
+
+	hope-scroller[direction=horizontal].scrolling * {
+		cursor:col-resize !important;
+	}
+
+	.gecko hope-scroller {
+		cursor:-moz-grab;
+	}
+
+	.gecko hope-scroller.scrolling * {
+		cursor:-moz-grabbing !important;
+	}
+
+	/* scrollbar track */
+		hope-scroll-track {
+			position:absolute;
+			z-index:10;
+			pointer-events:none;
+			overflow:hidden;
+		//	opacity:0;
+			-webkit-transition-duration:300ms;
+			-webkit-transition-delay:0;
+			-webkit-transition-property:opacity;
+			.round(3px);
+//			background:rgba(255,255,255,0.2);
+		}
+		
+		hope-scroll-track.horizontal {
+			height:6px;
+			bottom:0px;
+			left:0px;
+			right:0px;
+		}
+	
+		hope-scroll-track.vertical {
+			top:0px;
+			right:3px;
+			bottom:0px;
+			width:6px;
+		}
+
+	/* scrollbar thumb */
+		hope-scroll-thumb {
+			pointer-events:none;
+			position:absolute;
+			top:0;left:0;
+			-webkit-transition-timing-function:cubic-bezier(0,0,0.25,1);
+			-webkit-transition-delay:0;
+			-webkit-transition-property:all;
+			-webkit-transform:translate3d(0,0,0);
+			z-index:10;
+			.round(3px);
+			min-width:6px;
+			min-height:6px;
+			background:rgba(255,255,255,0.4);
+		}
+
+	
+	/* light appearance */
+		hope-scroll-track[appearance~=dark] {
+//			background:rgba(0,0,0,0.2);
+		}
+	
+		hope-scroll-track[appearance~=dark] scroll-thumb {
+			background:rgba(0,0,0,0.7);
+		}
+	
+	
+/*** Sections: can have hope-header and footers ***/
+	hope-section {
+		.box(vertical,stretch);
+		.flex;
+	}
+
+	hope-section[direction=horizontal] {
+		.box(horizontal,stretch);
+	}
+
+	// hope-container is the main body of a hope-section, etc.  Stick a hope-scroller in it to make it scroll.
+	hope-section > hope-container {
+		.flex;
+	}
+
+	/* if a hope-section is supposed to scroll, scroll its contianer instead */
+		hope-section[scroll=vertical] {
+			overflow:hidden;
+		}
+	
+		hope-section[scroll=vertical] > hope-container {
+			overflow-y:auto;
+		}
+
+/*** Label/Value tricks ***/
+	label[appearance~=big],
+	hope-value[appearance~=big]
+	{
+		font-size: 1.5em;
+	}
+	
+	label[appearance~=small],
+	hope-value[appearance~=small]
+	{
+		font-size: .8em;	
+	}
+
+
+/*** Editor: hope-section subclass that manages item ***/
+	hope-editor {
+		.box(vertical,stretch);
+		.flex;
+	}
+
+	// hope-container is the main body of a hope-editor, etc.  Stick a hope-scroller in it to make it scroll.
+	hope-editor > hope-container {
+		.flex;
+		.box(vertical, stretch);
+	}
+
+	hope-editor > hope-container > * {
+		display: block;
+	}
+	
+	hope-editor > hope-container > rows > row > label {
+		text-align:right;
+		padding-right: 5px;
+	}
+	
+	hope-editor hope-value {
+		font-weight:bold;
+	}
+
+
+	
+	
+	
+/*** Stack: hope-section which shows one item at a time ***/
+	hope-stack {
+		.box(vertical,stretch);
+	}
+	
+	// hope-container is the main body of a hope-section, etc.  It sometimes scrolls.
+	hope-stack > hope-container {
+		.flex;
+		.box(vertical,stretch);	
+	}
+
+	// hope-container is the main body of a hope-section, etc.  It sometimes scrolls.
+	hope-stack > hope-container > hope-section {}
+
+	
+
+/*** ListViewer ***/
+	hope-listviewer {
+		.box(vertical,stretch);
+	}
+	
+	hope-listviewer > hope-container {
+		.flex;
+		.box(vertical,stretch);
+		overflow-y:auto;
+		overflow-x:hidden;
+	}
+
+	hope-listviewer > hope-container > rows {
+		border-collapse:separate;
+		table-layout: fixed;
+	}
+
+	hope-listviewer > hope-container > rows > row {
+		cursor: pointer;
+	}
+
+	hope-listviewer > hope-container > rows > row > * {}
+	
+	hope-listviewer > hope-container > rows > row[selected] {}
+
+	hope-listviewer > hope-container > rows > row[selected] > * {
+		background:white;
+	}
+	
+	hope-listviewer > hope-container > rows > row > label {
+		padding:7px 5px;
+	}
+	hope-listviewer > hope-container > rows > row > cell {
+		padding:7px 5px;
+	}
+
+
+// horizontal layout
+	hope-listviewer[layout='horizontal'] > hope-container {
+		.box(horizontal,stretch);
+		width:100%; height:100%;
+		overflow-y:hidden;
+		overflow-x:auto;	
+	}
+
+	hope-listviewer[layout='horizontal'] > hope-container > rows {
+		display:inline-block !important;
+		white-space:nowrap;
+		height:100%; width:100%;
+	}
+
+	hope-listviewer[layout='horizontal'] > hope-container > rows > * {
+		display:inline-block !important;
+	}
+
+
+
+/*	inset look	*/
+
+	hope-listviewer[appearance=inset] {}
+	
+	hope-listviewer[appearance=inset] > hope-container {}
+
+	hope-listviewer[appearance=inset] > hope-container > rows > row > * {
+		border-top:1px solid #999;
+		line-height: 1.5;
+	}
+
+	hope-listviewer[appearance=inset] > hope-container > rows > row:first-child > * {
+		border-top-width: 0;
+	}
+
+	hope-listviewer[appearance=inset] > hope-container > rows > row[selected] {
+		.outsetShadow;	
+		background-color:rgba(255,223,71,.8);
+		.round(3px);
+		font-weight:bold;
+	}
+
+	hope-listviewer[appearance=inset] > hope-container > rows > row[selected] > * {
+		background:transparent;	
+	}
+
+
+
+
+/*** ItemViewer ***/
+	hope-itemviewer {
+		.box(vertical,stretch);
+	}
+	hope-itemViewer > hope-container {
+		.selectable;
+		.flex;
+		overflow:auto;
+	}
+	
+	hope-itemviewer > hope-container > rows {}
+	hope-itemviewer > hope-container > rows > row {}
+	hope-itemviewer > hope-container > rows > row > label {}
+
+	// set to the arrow cursor because you can select the text by clicking
+	hope-itemviewer > hope-container > rows > row > output {
+		cursor: default;
+	}
+
+/*** hope-keymap ***/
+	hope-keymap {
+		z-index:100000;
+		display: block !important;
+		position:absolute;
+		left:100px; top:100px;
+		width:500px; height:500px;
+		background:white;
+		border: 5px solid black;
+		.round(20px);
+	}
+	
+	hope-keymap hope-closer {
+		z-index:2;
+		.circleCloser;
+	}
+
+	hope-keymap hope-container {
+		z-index:1;
+		display: block;
+		width:100%; height:100%;
+		overflow:auto;
+	}
+
+	hope-keymap hope-action {
+		display:block;
+		position:relative;
+		border-bottom:1px solid #eee;
+	}
+
+	hope-keymap hope-action:before,
+	hope-keymap hope-action:after {
+		position:absolute;
+	}
+
+	hope-keymap hope-action:before {
+		width:140px;
+		left:20px;
+		content:attr(shortcut);
+	}
+	
+	hope-keymap hope-action:after {
+		left:160px;
+		right:0;
+		content:attr(description);
+		white-space:nowrap;
+	}
+
+/*** Menu elements ***/
+// menu outer element
+	hope-menu {
+		left:0;top:0;
+		position:absolute;
+		z-index:10000;
+		display:inline-block;
+		margin:0;
+		.round(10px);
+		.borderImage(url(theme/ios/frame-popover.png), 25 15 30 15, 25px 15px 30px 15px);
+//		.borderImage(url(theme/ios/popup-black.png), 50 15 15 15, 50px 15px 15px 15px);
+	}
+
+	hope-menu > hope-container {
+		margin:-18px -2px -13px -2px;
+	}
+
+	.desktop hope-menu {
+//		.shadow();	
+	}
+
+	.mobile hope-menu {
+		font-size:150%;	
+	}
+
+// separator between menu items
+	hope-menu hope-separator {
+		display:block;
+		height:8px; overflow:hidden;
+	}
+
+// group of menuitems -- no visual appearance, use to show/hide/etc a bunch at once
+	hope-menu hope-group {
+		display:block;
+	}	
+
+// make actions in popup menus rows with horizontal separators
+	hope-menu hope-action {
+		display:block;
+		width:100%;
+		margin:2px 0px;
+	}
+	
+/* NOT SURE WHY THESE ARE TURNED OFF...	
+	hope-menu hope-action:hover {
+		background-color:rgb(255,233,51);
+	}
+
+	hope-menu hope-action:active {
+		background-color:lightblue;
+	}
+
+	hope-menu hope-action[disabled] {
+		opacity:.15;
+		background-color:white !important;
+		cursor:default;
+	}
+
+
+	
+// menus with icons
+	hope-menu hope-action[icon] {
+		background-repeat:no-repeat;
+		background-position:6px center;
+		padding-left:29px !important;
+	}
+
+// menus with checks
+	hope-menu[showchecks] hope-action {
+		padding-right:10px;
+		border-right-width:20px;
+	}
+
+	hope-menu hope-action[selected] {
+		.borderImage(url(theme/icons/menu-check.png), 2 20 0 0, 2px 20px 0px 0px,stretch);
+	}
+*/
+
+
+/*** Toolbar ***/
+
+
+	hope-toolbar {
+		.flex(1);
+		.box(horizontal,center);
+		padding:0px 5px;
+		width: 100%;
+	}
+	hope-toolbar > * {
+		display: block;
+		vertical-align:middle;
+	}
+
+	hope-toolbar > label {
+		margin-left:10px;
+		margin-right:10px;
+	}
+	
+	hope-toolbar[appearance~=top] {
+		.roundTop(5px);
+	}
+
+
+	/* black hope-toolbar */
+
+		hope-toolbar[appearance~=black] {
+			height:43px;
+			background:url(theme/ios/toolbar-black.png) repeat-x;
+			color:white;
+		}
+	
+		
+		hope-toolbar[appearance~=black] label {
+//			font-weight:bold;
+		}
+
+	/* "inset" appearance hope-toolbar */
+		hope-toolbar[appearance~=inset] {
+			padding: 3px 10px 0 10px;
+		}
+
+		hope-toolbar[appearance~=inset] label {
+			line-height: 31px;
+			font-weight:bold;
+		}
+
+		.gecko hope-toolbar[appearance~=inset] label {
+			line-height: 28px;
+		}
+
+
+/*** Spring is a spacer which uses flex to greedily take up space ***/
+	hope-spring {
+		.urgentFlex(1);
+	}
+
+
+/*** Spacer is a fixed-width spacer.  
+ 	 Default is 10px wide.  Use style='width:#px' to set width. 
+***/
+	hope-spacer {
+		position:relative !important;
+		display:inline-block;
+		width: 10px;
+	}
+
+
+/*** Tabs and TabBar ***/
+
+
+	hope-tabgroup {
+		.box(vertical,stretch);
+	}
+
+	hope-tabgroup > hope-container {
+		.flex(1);
+		.box(vertical,stretch);
+	}
+	
+	hope-tabgroup > hope-toolbar {}
+	
+	hope-tabgroup > hope-container > * {
+		.flex;
+	}
+
+	hope-tabgroup > hope-container > hope-section > hope-container {}
+
+	/* hope-tabselector holds a bunch of actions which select hope-tabgroup children */
+	hope-tabselector {
+		white-space:nowrap;
+	}
+
+	hope-tabselector hope-tab {
+		.button-ish;
+		color:white;
+	    text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
+		padding:0px 20px;
+		cursor:pointer;
+		.Segment(url(theme/ios/segment-black.png);
+	}
+	
+	hope-tabselector hope-tab:first-child {
+		padding-left:15px;
+		.SegmentStart(url(theme/ios/segment-black-start.png);
+	}
+	
+	hope-tabselector hope-tab:last-child {
+		padding-right:15px;
+		.SegmentEnd(url(theme/ios/segment-black-end.png);
+	}
+
+
+	// different graphics for selected mode
+	hope-tabselector hope-tab[selected] {
+		.Segment(url(theme/ios/segment-black-selected.png);
+	}
+
+	hope-tabselector hope-tab[selected]:first-child {
+		.SegmentStart(url(theme/ios/segment-black-selected-start.png);
+	}
+	
+	hope-tabselector hope-tab[selected]:last-child {
+		.SegmentEnd(url(theme/ios/segment-black-selected-end.png);
+	}
+
+
+	/** add tighter spacing to a hope-tabselector by adding css class "tight" **/
+	hope-tabselector.tight hope-tab {
+		padding: 0 5px;
+	}
+
+
+/*** hope-notice panels ***/
+	hope-notice {
+		.flex;
+		position:relative;
+		display:block;
+		text-align:center;
+		font-weight:bold;
+		font-size:1.5em;
+		padding: 2em;
+	}
+
+	*[appearance~=inset] hope-notice hope-container,
+	hope-notice[appearance=smoke] hope-container
+	{
+		.round(20px);
+		opacity: .8;
+		padding: 2em;
+		border:5px solid white;
+		background-color: black;
+		color: white;
+	}
+
+
+	hope-overlay[appearance~=blue] hope-notice {
+		color:white;
+		padding:50px;
+	}
+
+
+/*** hope-messageboard singleton ***/
+	hope-messageboard {
+		display:block;
+		position:absolute;
+		right:5px;
+		top:45px;
+		width:225px;
+	}
+	
+	hope-messageboard hope-message {
+		.round(16px);
+		opacity: .9;
+		padding: .5em 40px .4em 1em;
+		border:2px solid rgba(255,255,255,.9);
+		background-color: black;
+		color: white;
+		width:100%;
+		font-weight:bold;
+		margin-bottom: .4em;
+		background-image:url(theme/ios/message-clear.png);
+		background-repeat:no-repeat;
+		background-position:right center;
+		cursor:pointer;
+
+		-webkit-transition-duration: 200ms;
+		-webkit-transition-property: opacity;
+		.shadow();
+	}
+
+	hope-messageboard hope-message.warning {
+		background-color:darkgoldenrod;
+	}
+
+	hope-messageboard hope-message.error {
+		background-color:darkred;
+	}
+
+/*** Overlay ***/
+
+	.horizontal hope-section hope-overlay {
+		height:768px;
+	}
+
+	.vertical hope-section hope-overlay {
+		height:1024px;
+	}
+
+
+	hope-overlay {
+		position:absolute;		
+		left:0px; top:0px;
+		width:100%; height:100%;
+		z-index:10000;
+	}
+	
+	.desktop hope-overlay {
+		position:fixed;
+	}
+	
+	hope-overlay > hope-mask > hope-border {
+		position:relative;
+		display:block;
+		width:720px;
+		.round(20px);
+		min-height:100px;
+		max-height:740px;
+		margin-top:10px;
+	}
+
+	hope-overlay > hope-mask > hope-border > hope-header > h1,
+	hope-overlay > hope-mask > hope-border > hope-header > h2,
+	hope-overlay > hope-mask > hope-border > hope-header > h3 {
+		margin:0;
+		font-size:1.8em;
+		font-weight:bold;
+		padding:5px 10px 5px 0;
+	}
+
+	hope-overlay > hope-mask > hope-border > hope-container {
+		width: 100%; height:100%;
+		.box(vertical,stretch);
+	}
+	
+	
+	hope-overlay > hope-mask > hope-border > hope-close {
+		.circleCloser;
+	}
+	
+	hope-overlay.noclose > hope-mask > hope-border {
+		margin-top:0px;
+	}
+
+	hope-overlay.noclose > hope-mask > hope-border > hope-close {
+		display:none;
+	}
+
+	
+	hope-overlay[appearance~=white] > hope-mask > hope-border {
+		background-color:white;
+	}
+
+	.desktop hope-overlay[appearance~=white] > hope-mask > hope-border {
+		.shadow(5px,5px,5px);	
+	}
+
+	hope-overlay[appearance~=white].hasHeader > hope-mask > hope-border > hope-header {
+		border-bottom:1px solid #999;
+	}
+
+/*** blue hope-overlay ***/
+	hope-overlay[appearance~=blue] > hope-mask > hope-border {
+		background-color:#1b1e2b;
+		border:3px solid white;
+	}
+
+	.desktop hope-overlay[appearance~=blue] > hope-mask > hope-border {
+		.shadow(5px,5px,5px);
+	}
+
+	hope-overlay[appearance~=blue].hasHeader > hope-mask > hope-border > hope-header {
+		position:relative;
+		top:-4px;
+		.roundTop(20px);
+		padding-left:30px;
+		background-color:white;
+	}
+	hope-overlay[appearance~=blue].hasHeader > hope-mask > hope-border > hope-header > label {
+		color:black;
+		font-size: 1.3em;
+		font-weight:bold;
+		padding:5px;
+	}
+
+	hope-overlay[appearance~=blue] > hope-mask > hope-border > hope-container {
+		padding:10px;
+		color: white;
+	}
+	
+	hope-overlay[appearance~=blue] label.head {
+		color:white;
+		text-align:left;
+		font-size:1.3em;
+		font-weight:bold;
+		margin:1em;
+	}
+	
+	
+/*** form hope-overlay ***/
+	hope-overlay[appearance~=form] > hope-mask > hope-border {
+		background-color:#1b1e2b;
+		border:5px solid white;
+		color: white;
+	}
+
+	.desktop hope-overlay[appearance~=form] > hope-mask > hope-border {
+		.shadow(5px,5px,5px);
+	}
+
+	hope-overlay[appearance~=form].hasHeader > hope-mask > hope-border > hope-header title {
+		display: block;
+		font-size: 2em;
+		font-weight: bold;
+		margin: 10px 0;
+	}
+
+
+	hope-overlay[appearance~=form] > hope-mask > hope-border > hope-container {
+		.round(20px);
+		background-color: #32384e;
+		padding:10px;
+		color: white;
+	}
+
+	hope-overlay[appearance~=form].hasHeader > hope-mask > hope-border > hope-footer {
+		padding: 5px 10px;
+	}
+
+
+/*** form hope-section ***/
+	hope-section[appearance~=form] {}
+
+	hope-section[appearance~=form] > hope-container {
+		padding: 10px;
+	}
+
+	hope-section[appearance~=form] > hope-container > row,
+	hope-section[appearance~=form] > hope-container > rows > row 
+	{
+		
+	}
+	
+	hope-section[appearance~=form] > hope-container > row > *,
+	hope-section[appearance~=form] > hope-container > rows > row > * 
+	{
+		vertical-align: baseline;
+	}
+
+	hope-section[appearance~=form] > hope-container > row > label,
+	hope-section[appearance~=form] > hope-container > rows > row > label 
+	{
+		text-align:right;
+		font-weight:bold;
+		opacity:.5;
+		padding-left:10px;
+		padding-right:5px;
+	}
+
+
+
+
+/*** hope-panel ***/
+	hope-panel {}
+
+
+
+/*** white hope-panel/hope-container ***/
+	hope-panel[appearance~=white],
+	hope-container[appearance~=white] {
+		.round(10px);
+		.boxShadow(inset 0px 1px 4px rgba(0,0,0,0.5));
+		background:white;
+		border:1px solid #ccc;
+		font-size: 1.3em;
+	}
+
+	hope-panel[appearance~=white] > hope-container > row,
+	hope-container[appearance~=white] > row {
+		width:100%;
+	}
+
+	hope-panel[appearance~=white] > hope-container > row > *,
+	hope-container[appearance~=white] > row > * {
+		border-bottom:1px solid #ccc;
+		vertical-align:middle;
+	}
+
+	hope-panel[appearance~=white] > hope-container > row:last-child > *,
+	hope-container[appearance~=white] > row:last-child > * {
+		border-bottom-width:0;
+	}
+
+	hope-panel[appearance~=white] > hope-container > row > label,
+	hope-container[appearance~=white] > row > label {
+		width: 100%;
+		font-weight:bold;
+	}
+
+	hope-panel[appearance~=white] {
+		margin:1em 10% 1.5em 10%;
+		width:80%;
+		color:black;
+	}
+
+	hope-panel[appearance~=white] > hope-container > row > label {
+		width: 100%;
+		font-weight:bold;
+		padding-left:1em;
+		padding-right:1em;
+	}
+
+
+/*** grey hope-panel ***/
+	hope-panel[appearance~=grey] {
+		background-color:#40434f;
+		.round(5px);
+	}
+
+	hope-panel[appearance~=grey] hope-toolbar {
+		.roundTop(5px);
+		height:44px;
+		background-image:url(theme/ios/toolbar-grey.png);
+	}
+
+	hope-panel[appearance~=grey] hope-toolbar hope-action {
+		border:0px;
+		margin-left:10px;
+		margin-right:-5px;
+	}
+	
+	
+	hope-panel[appearance~=grey] hope-toolbar label {
+		text-shadow: rgba(255, 255, 255, 0.4) 1px 1px 0;
+		font-size:1.6em;
+		color:#717880;
+		font-weight:bold;
+		text-align:center;
+	}
+
+
+/*** blue hope-panel ***/
+	hope-panel[appearance~=blue] {}
+
+	hope-panel[appearance~=blue] > hope-header {
+		background-color:#444a63;
+		.roundTop(10px);
+		color:white;
+		padding:0 10px;
+		line-height: 40px;
+		text-align:center;
+		font-weight: bold;
+	}
+
+	hope-panel[appearance~=blue] > hope-container {
+		.roundBottom(10px);
+		background:#32384e;
+		color:white;
+	}
+	
+	hope-panel[appearance~=blue] hope-footer {
+	
+	}
+
+
+
+
+/*** popup hope-panel (kinda a hybrid -- UI guidelines? ***/
+
+	hope-popovermenu {
+		position:absolute;
+		display:block;
+		.borderImage(url(theme/ios/popup-black.png), 50 15 15 15, 50px 15px 15px 15px);
+		z-index:10000;
+		min-width:100px;
+	}
+
+	hope-popovermenu > hope-container {
+		margin:-20px -5px -5px;
+		padding-right:16px;
+		max-height:500px;
+		overflow-x:hidden;
+		overflow-y:auto;
+	}
+	hope-popovermenu > .arrow {
+		position:absolute;
+		left:0;
+		top:-48px;
+		width:100%;
+		height:20px;
+		background:url(theme/ios/popup-black-arrow-top.png) no-repeat top center;
+	}
+	
+	hope-popovermenu row label {
+		white-space:nowrap;
+		padding:8px 60px 8px 12px;
+		border-bottom:1px solid #ccc;
+	}
+
+	hope-popovermenu row:last-child label {
+		border-bottom-width:0px;
+	}
+
+	hope-popovermenu row[selected] label {
+		color: #1a4c8b;
+		background:url(theme/ios/menu-check.png) no-repeat right center;
+	}
+
+	hope-popovermenubutton {
+		display:inline-block;
+		padding:5px 0 0 0;
+		color: black;
+		white-space:nowrap;
+		height:30px;
+		.borderImage(url(theme/ios/list-selector-button-inset.png), 0 37 0 8, 0px 37px 0px 8px);
+	}
+
+/*** CheckSwitch - iOS style hope-checkbox ***/
+	hope-checkswitch {
+		height:27px;
+	}
+	hope-checkswitch > span {
+		position:relative;
+		display:inline-block;
+		width: 94px;
+		height: 27px;
+		overflow:hidden;
+		vertical-align:middle;
+		cursor:pointer;
+		margin:10px;
+	}
+	
+	hope-checkswitch div {
+		display:inline-block;
+		position:absolute;
+		height:27px;
+		width:149px;
+		background:url(theme/ios/switch-on.png),url(theme/ios/switch-off.png);
+		background-repeat:no-repeat;
+		-webkit-transition:left ease-in 200ms;
+	}
+
+	hope-checkswitch div.off {
+		left:-55px;
+		background:url(theme/ios/switch-off.png) no-repeat;
+	}
+
+	hope-checkswitch div.on {
+		left:0px;
+		background:url(theme/ios/switch-on.png) no-repeat;
+	}
+
+
+
+/*** WebView -- full screen embedded web browser ***/
+	hope-webview {
+		position:absolute;
+		.box(vertical,stretch);
+	}
+
+	hope-webview > iframe {
+		border:0px;	
+		background:white;
+	}
+	
+	.gecko hope-webview > iframe {
+		.flex;
+	}
+
+	.webkit hope-webview > iframe {
+		width: 100%;
+		height: 92%;
+	}
+
+
+
+/*** Split pane (divides into horizontally or vertically stacked panes) ***/
+	hope-splitter {
+		position:relative;
+		.box(vertical,stretch);	
+		.flex(1);
+	}
+
+	hope-splitter[direction=horizontal] {
+		.box(horizontal,stretch);	
+	}
+
+	// GRR....
+	hope-splitter[direction=horizontal][visible=no] {
+		display:none !important;
+	}
+
+
+	hope-splitter > splitbar {
+		position:absolute;
+		z-index: 2;
+		left:10px; right:0; 
+		height: 10px;
+		background-color: green;
+	}
+	
+	hope-splitter[direction=horizontal] > splitbar {
+		top:0;
+		right: auto;
+		height:100%;
+	}
+
+
+/*** Textfield -- managed input field w/error semantics/etc ***/
+	hope-textfield {
+		display:inline-block;
+	}
+
+	hope-textfield[multiline] {
+		.box(vertical,stretch);	
+	}
+
+
+	hope-textfield > input {
+		width:100%;
+	}
+
+
+	.gecko hope-textfield > textarea {
+		.flex;
+	}
+
+	.webkit hope-textfield > textarea {
+		position:absolute;
+		width:100%;
+		height:100%;
+	}
+
+
+	hope-textfield.focus input {
+		background-color:#fffec7;
+	}
+
+	hope-textfield.error input {
+		background-color:pink;
+	}
+	
+	hope-textfield > hope-message {
+		display: block;
+		margin-bottom: 3px;
+		height: 16px;
+	}
+	
+	hope-textfield > hope-message.hint {
+		color: #666;
+		font-style: italic;
+		font-size: 90%;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	
+	hope-textfield > hope-message.error {
+		color: darkred;
+		font-weight: bold;
+		padding-left: 18px;
+		background:url(theme/silk/critical.png) left center no-repeat;
+		line-height: 16px;
+	}
+
+
+/* specific type/apperance management */
+	hope-textfield[type=number] input {
+		text-align:right;
+		width: 8em;
+	}
+
+	hope-textfield[appearance~=small] input {
+		width: 5em;
+	}
+
+	hope-textfield[type=currency] input {
+		background-image:url(theme/widgets/field-currency-dollar.png);
+		background-position:3px center;
+		background-repeat:no-repeat;
+		padding-left: 12px;
+		width: 8em;
+		text-align:right;
+	}
+	
+
+	hope-textfield[type=url] input {
+		width:100%;
+	}
+
+
+/*** Checkbox -- managed input type='hope-checkbox' ***/
+	hope-checkbox {
+		display:inline-block;
+	}
+	
+	hope-checkbox > hope-group > label {
+		padding:0 5px;
+		cursor:pointer;
+	}
+
+	hope-checkbox[disabled] > hope-group > label {
+		opacity:.3;
+		cursor:default;
+	}
+
+
+//TODO: abstract this
+	hope-checkbox > hope-message {
+		display: block;
+		margin-bottom: 3px;
+		height: 16px;
+	}
+	
+	hope-checkbox > hope-message.hint {
+		color: #666;
+		font-style: italic;
+		font-size: 90%;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	
+	hope-checkbox > hope-message.error {
+		color: darkred;
+		font-weight: bold;
+		padding-left: 18px;
+		background:url(theme/silk/critical.png) left center no-repeat;
+		line-height: 16px;
+	}
+
+
+
+
+
+/*** Combobox -- input field with menu semantics ***/
+	hope-combobox {
+		.box(horizontal, center);
+	}
+
+	hope-combobox > input {
+		.flex(1);
+		.roundLeft(5px);
+		.roundRight(0);
+		display:inline-block;
+	}
+
+	hope-combobox > hope-action {
+		.borderImage(url(theme/ios/combo-hope-action.png), 0 5 0 5, 0px 5px 0px 5px);
+		height:25px !important;
+		line-height:25px;
+		margin:1px 3px 0 -3px;
+	}
+
+
+/*** DirtyBit -- dot which represents the state of a file ***/
+	hope-dirtybit {
+		width: 16px; height: 16px;
+		background-image:url(theme/ios/dot-grey.png);
+	}
+	hope-dirtybit[state=saved] {
+		background-image:url(theme/ios/dot-green.png);
+	}
+	hope-dirtybit[state=unloaded] {
+		background-image:url(theme/ios/dot-grey.png);
+	}
+	hope-dirtybit[state=loading] {
+		background-image:url(theme/ios/dot-blue.png);
+	}
+	hope-dirtybit[state=dirty] {
+		background-image:url(theme/ios/dot-yellow.png);
+	}
+	hope-dirtybit[state=loadError] {
+		background-image:url(theme/ios/dot-red.png);
+	}
+	hope-dirtybit[state=error] {
+		background-image:url(theme/ios/dot-red.png);
+	}
+
+
+/*** filter field -- set of fields which allow you to set filter criteria ***/
+	hope-filter {
+		display:block;
+	}
+	
+	
+	hope-filter-clause {
+		display:inline-block;
+		.ButtonBorder(url(theme/ios/btn-white.png));
+		padding:0px 6px 0px 0px;
+		margin:2px;
+		white-space:nowrap;
+	}
+
+	hope-filter-clause hope-action[part='$adder'] {
+		padding:0px;
+		top:-2px;
+	}
+
+	hope-filter-clause[status=error] {
+		.ButtonBorder(url(theme/ios/btn-red.png));
+	}
+
+	hope-filter-clause input {
+		position:relative;
+		top:-1px;
+		padding:0px;
+	}
+
+	hope-filter.clauses_1 > hope-filter-clause > hope-action[icon='field-clear-white'] {
+		display: none;
+	}
+
+
+/*** Icons ***/
+
+	/* hope-icon element -- use this inside a button with border-image */
+		hope-icon {
+//			.backgroundFullWidth;
+			display:inline-block;
+			position:relative;
+			background-position:left center;
+			background-repeat:no-repeat;		
+			cursor:pointer;
+			vertical-align:middle;
+		}
+		
+		hope-icon[disabled] {
+			opacity:.1;
+			cursor:default;
+		}
+
+	/* Icon backgrounds -- attach by having a [icon] attribute on some element.
+	   It's up to your calling context to set where/how the hope-icon shows up.			*/
+
+
+
+		/* silk icons -- they don't match but there are a lot of them! */
+		*[icon|=silk] > hope-icon				{	width: 16px; height: 16px;	}
+		*[icon=silk-add] > hope-icon			{	background-image:url(theme/silk/add.png);	}
+		*[icon=silk-check] > hope-icon			{	background-image:url(theme/silk/check.png);	}
+		*[icon=silk-critical] > hope-icon		{	background-image:url(theme/silk/critical.png);	}
+		*[icon=silk-down] > hope-icon			{	background-image:url(theme/silk/down.png);	}
+		*[icon=silk-gear] > hope-icon			{	background-image:url(theme/silk/gear.png);	}
+		*[icon=silk-horizontal] > hope-icon		{	background-image:url(theme/silk/horizontal.png);	}
+		*[icon=silk-info] > hope-icon			{	background-image:url(theme/silk/info.png);	}
+		*[icon=silk-large] > hope-icon 			{	background-image:url(theme/silk/large.png);	}
+		*[icon=silk-left] > hope-icon			{	background-image:url(theme/silk/left.png);	}
+		*[icon=silk-link] > hope-icon			{	background-image:url(theme/silk/link.png);	}
+		*[icon=silk-link-error] > hope-icon		{	background-image:url(theme/silk/link-error.png);	}
+		*[icon=silk-lock] > hope-icon			{	background-image:url(theme/silk/locked.png);	}
+		*[icon=silk-locked] > hope-icon			{	background-image:url(theme/silk/locked.png);	}
+		*[icon=silk-medium] > hope-icon 		{	background-image:url(theme/silk/medium.png);	}
+		*[icon=silk-moveBackwards] > hope-icon	{	background-image:url(theme/silk/moveBackwards.png);	}
+		*[icon=silk-moveForwards] > hope-icon	{	background-image:url(theme/silk/moveForwards.png);	}
+		*[icon=silk-moveToBack] > hope-icon		{	background-image:url(theme/silk/moveToBack.png);	}
+		*[icon=silk-moveToFront] > hope-icon	{	background-image:url(theme/silk/moveToFront.png);	}
+		*[icon=silk-pencil] > hope-icon			{	background-image:url(theme/silk/pencil.png);	}
+		*[icon=silk-person] > hope-icon			{	background-image:url(theme/silk/person.png);	}
+		*[icon=silk-refresh] > hope-icon		{	background-image:url(theme/silk/refresh.png);	}
+		*[icon=silk-remove] > hope-icon 		{	background-image:url(theme/silk/remove.png);	}
+		*[icon=silk-right] > hope-icon			{	background-image:url(theme/silk/right.png);	}
+		*[icon=silk-small] > hope-icon 			{	background-image:url(theme/silk/small.png);	}
+		*[icon=silk-save] > hope-icon 			{	background-image:url(theme/silk/save.png);	}
+		*[icon=silk-stop] > hope-icon 			{	background-image:url(theme/silk/stop.png);	}
+		*[icon=silk-unlock] > hope-icon			{	background-image:url(theme/silk/unlocked.png);	}
+		*[icon=silk-unlocked] > hope-icon		{	background-image:url(theme/silk/unlocked.png);	}
+		*[icon=silk-up] > hope-icon				{	background-image:url(theme/silk/up.png);	}
+		*[icon=silk-vertical] > hope-icon		{	background-image:url(theme/silk/vertical.png);	}
+		*[icon=silk-video] > hope-icon			{	background-image:url(theme/silk/film.png);	}
+		*[icon=silk-warning] > hope-icon		{	background-image:url(theme/silk/warning.png);	}
+		*[icon=silk-window] > hope-icon			{	background-image:url(theme/silk/window.png);	}
+		*[icon=silk-windowChart] > hope-icon	{	background-image:url(theme/silk/windowChart.png);	}
+		*[icon=silk-windowSwitch] > hope-icon	{	background-image:url(theme/silk/windowSwitch.png);	}
+		*[icon=silk-windowTile] > hope-icon		{	background-image:url(theme/silk/windowTile.png);	}
+
+
+	/* light icons */
+		*[icon=light-hope-action] > hope-icon	{	background-image:url(theme/ios/icon-light-hope-action.png);	width:28px; height:28px; margin-left:4px; margin-right:-5px; margin-bottom:2px; }
+		*[icon=light-left] > hope-icon 			{	background-image:url(theme/ios/icon-light-left.png);	width:16px; height:19px; left: -1px; }
+		*[icon=light-left]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-left-active.png); }
+		*[icon=light-right] > hope-icon 		{	background-image:url(theme/ios/icon-light-right.png);	width:16px; height:19px; left: 1px; }
+		*[icon=light-right]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-right-active.png); }
+
+	/* dark icons */
+		*[icon=dark-left] > hope-icon 			{	background-image:url(theme/ios/icon-dark-left.png);	width:16px; height:19px; left: -1px; }
+		*[icon=dark-left]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-left-active.png); }
+		*[icon=dark-right] > hope-icon 			{	background-image:url(theme/ios/icon-dark-right.png);	width:16px; height:19px; left: 1px; }
+		*[icon=dark-right]:active > hope-icon 	{	background-image:url(theme/ios/icon-light-right-active.png); }
+
+
+	/* small-light icons */
+		*[icon=small-light-down] > hope-icon 	{	background-image:url(theme/ios/icon-small-light-down.png);	width:11px; height:9px; margin-top:-1px; }
+		*[icon=small-light-up] > hope-icon 		{	background-image:url(theme/ios/icon-small-light-up.png);	width:11px; height:9px; }
+
+
+	/* circle icons */
+		*[icon|=circle] > hope-icon 			{	width:29px; height:29px;	}
+		*[icon=circle-add-blue] > hope-icon 	{	background-image:url(theme/ios/circle-add-blue.png);	}
+		*[icon=circle-add-green] > hope-icon 	{	background-image:url(theme/ios/circle-add-green.png);	}
+		*[icon=circle-checked-red] > hope-icon 	{	background-image:url(theme/ios/circle-checked-red.png);	}
+		*[icon=circle-delete-red] > hope-icon 	{	background-image:url(theme/ios/circle-delete-red.png);	}
+		*[icon=circle-down-blue] > hope-icon 	{	background-image:url(theme/ios/circle-down-blue.png);	}
+		*[icon=circle-error-red] > hope-icon 	{	background-image:url(theme/ios/circle-error-red.png);	}
+		*[icon=circle-error-red] > hope-icon 	{	background-image:url(theme/ios/circle-error-red.png);	}
+		*[icon=circle-left-blue] > hope-icon 	{	background-image:url(theme/ios/circle-left-blue.png);	}
+		*[icon=circle-minus-blue] > hope-icon 	{	background-image:url(theme/ios/circle-minus-blue.png);	}
+		*[icon=circle-minus-red] > hope-icon 	{	background-image:url(theme/ios/circle-minus-red.png);	}
+		*[icon=circle-right-blue] > hope-icon 	{	background-image:url(theme/ios/circle-right-blue.png);	}
+		*[icon=circle-up-blue] > hope-icon 		{	background-image:url(theme/ios/circle-up-blue.png);	}
+
+	/* status dots */
+		*[icon|=dot] > hope-icon,		hope-icon[icon|=dot]		{	width: 16px; height: 16px; margin-top:-2px;	}
+		*[icon=dot-blue] > hope-icon,	hope-icon[icon=dot-blue]	{	background-image:url(theme/ios/dot-blue.png);	}
+		*[icon=dot-gold] > hope-icon,	hope-icon[icon=dot-gold]	{	background-image:url(theme/ios/dot-gold.png);	}
+		*[icon=dot-green] > hope-icon,	hope-icon[icon=dot-green]{	background-image:url(theme/ios/dot-green.png);	}
+		*[icon=dot-grey] > hope-icon,	hope-icon[icon=dot-grey]	{	background-image:url(theme/ios/dot-grey.png);	}
+		*[icon=dot-red] > hope-icon,		hope-icon[icon=dot-red]	{	background-image:url(theme/ios/dot-red.png);	}
+		
+		
+	/* status dots */
+		*[icon=close] > hope-icon,		hope-icon[icon=close]		{	width: 31px; height: 32px; background-image:url(theme/ios/closebox.png);	}
+
+
+	/* status dots */
+		*[icon|=field-clear] > hope-icon,	hope-icon[icon|=field-clear] {width: 19px; height: 19px; margin-top:-2px;	}
+		*[icon=field-clear] > hope-icon,	hope-icon[icon=field-clear]		{	background-image:url(theme/ios/field-clear.png); }
+		*[icon=field-clear-white] > hope-icon,	hope-icon[icon=field-clear-white]		{	background-image:url(theme/ios/field-clear-white.png); }
